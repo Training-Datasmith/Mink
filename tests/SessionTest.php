@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests;
 
 use Behat\Mink\Session;
@@ -118,7 +120,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
         $this->driver
             ->expects($this->once())
             ->method('getResponseHeaders')
-            ->will($this->returnValue($ret = array(2, 3, 4)));
+            ->will($this->returnValue($ret = [2, 3, 4]));
 
         $this->assertEquals($ret, $this->session->getResponseHeaders());
     }
@@ -175,7 +177,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     {
         $this->driver->expects($this->once())
             ->method('getWindowNames')
-            ->will($this->returnValue($names = array('window 1', 'window 2')));
+            ->will($this->returnValue($names = ['window 1', 'window 2']));
 
         $this->assertEquals($names, $this->session->getWindowNames());
     }

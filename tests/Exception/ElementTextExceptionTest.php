@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Exception;
 
 use Behat\Mink\Exception\ElementTextException;

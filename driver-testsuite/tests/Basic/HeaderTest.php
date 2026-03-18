@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Driver\Basic;
 
 use Behat\Mink\Tests\Driver\TestCase;
@@ -67,7 +69,7 @@ class HeaderTest extends TestCase
 
         $headers = $this->getSession()->getResponseHeaders();
 
-        $lowercasedHeaders = array();
+        $lowercasedHeaders = [];
         foreach ($headers as $name => $value) {
             $lowercasedHeaders[str_replace('_', '-', strtolower($name))] = $value;
         }

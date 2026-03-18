@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Driver;
 
 class CoreDriverTest extends \PHPUnit_Framework_TestCase
@@ -32,7 +34,7 @@ class CoreDriverTest extends \PHPUnit_Framework_TestCase
         $driver = $this->getMockForAbstractClass('Behat\Mink\Driver\CoreDriver');
 
         $this->setExpectedException('Behat\Mink\Exception\UnsupportedDriverActionException');
-        call_user_func_array(array($driver, $method->getName()), $this->getArguments($method));
+        call_user_func_array([$driver, $method->getName()], $this->getArguments($method));
     }
 
     public function getDriverInterfaceMethods()
@@ -40,13 +42,13 @@ class CoreDriverTest extends \PHPUnit_Framework_TestCase
         $ref = new \ReflectionClass('Behat\Mink\Driver\DriverInterface');
 
         return array_map(function ($method) {
-            return array($method);
+            return [$method];
         }, $ref->getMethods());
     }
 
     private function getArguments(\ReflectionMethod $method)
     {
-        $arguments = array();
+        $arguments = [];
 
         foreach ($method->getParameters() as $parameter) {
             $arguments[] = $this->getArgument($parameter);

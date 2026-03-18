@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Driver\Basic;
 
 use Behat\Mink\Tests\Driver\TestCase;
@@ -79,10 +81,10 @@ class CookieTest extends TestCase
 
     public function cookieWithPathsDataProvider()
     {
-        return array(
-            array('session_reset'),
-            array('cookie_delete'),
-        );
+        return [
+            ['session_reset'],
+            ['cookie_delete'],
+        ];
     }
 
     public function testReset()

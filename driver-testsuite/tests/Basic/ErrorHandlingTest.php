@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Driver\Basic;
 
 use Behat\Mink\Tests\Driver\TestCase;
 
 class ErrorHandlingTest extends TestCase
 {
-    const NOT_FOUND_XPATH = '//html/./invalid';
+    public const NOT_FOUND_XPATH = '//html/./invalid';
 
-    const NOT_FOUND_EXCEPTION = 'Exception';
+    public const NOT_FOUND_EXCEPTION = 'Exception';
 
-    const INVALID_EXCEPTION = 'Exception';
+    public const INVALID_EXCEPTION = 'Exception';
 
     public function testVisitErrorPage()
     {

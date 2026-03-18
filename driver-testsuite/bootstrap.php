@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $file = __DIR__.'/../../../autoload.php';
 
 if (!file_exists($file)) {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -46,8 +48,8 @@ class DocumentElement extends TraversableElement
      */
     public function hasContent($content)
     {
-        return $this->has('named', array(
-            'content', $this->getSelectorsHandler()->xpathLiteral($content)
-        ));
+        return $this->has('named', [
+            'content', $this->getSelectorsHandler()->xpathLiteral($content),
+        ]);
     }
 }

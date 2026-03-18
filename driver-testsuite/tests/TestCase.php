@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Driver;
 
 use Behat\Mink\Exception\UnsupportedDriverActionException;
@@ -28,7 +30,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     {
         if (null === self::$mink) {
             $session = new Session(self::getConfig()->createDriver());
-            self::$mink = new Mink(array('sess' => $session));
+            self::$mink = new Mink(['sess' => $session]);
         }
     }
 
@@ -104,7 +106,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     {
         $id = $this->getSession()->getSelectorsHandler()->xpathLiteral($id);
 
-        return $this->getAssertSession()->elementExists('named', array('id', $id));
+        return $this->getAssertSession()->elementExists('named', ['id', $id]);
     }
 
     /**

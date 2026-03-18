@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -21,7 +23,7 @@ class Manipulator
     /**
      * Regex to find union operators not inside brackets.
      */
-    const UNION_PATTERN = '/\|(?![^\[]*\])/';
+    public const UNION_PATTERN = '/\|(?![^\[]*\])/';
 
     /**
      * Prepends the XPath prefix to the given XPath.
@@ -36,7 +38,7 @@ class Manipulator
      */
     public function prepend($xpath, $prefix)
     {
-        $expressions = array();
+        $expressions = [];
 
         // If the xpath prefix contains a union we need to wrap it in parentheses.
         if (preg_match(self::UNION_PATTERN, $prefix)) {

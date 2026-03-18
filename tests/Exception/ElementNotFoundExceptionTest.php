@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Exception;
 
 use Behat\Mink\Exception\ElementNotFoundException;
@@ -22,13 +24,13 @@ class ElementNotFoundExceptionTest extends \PHPUnit_Framework_TestCase
 
     public function provideExceptionMessage()
     {
-        return array(
-            array('Tag not found.', null),
-            array('Field not found.', 'field'),
-            array('Tag matching locator "foobar" not found.', null, null, 'foobar'),
-            array('Tag matching css "foobar" not found.', null, 'css', 'foobar'),
-            array('Field matching xpath "foobar" not found.', 'Field', 'xpath', 'foobar'),
-            array('Tag with name "foobar" not found.', null, 'name', 'foobar'),
-        );
+        return [
+            ['Tag not found.', null],
+            ['Field not found.', 'field'],
+            ['Tag matching locator "foobar" not found.', null, null, 'foobar'],
+            ['Tag matching css "foobar" not found.', null, 'css', 'foobar'],
+            ['Field matching xpath "foobar" not found.', 'Field', 'xpath', 'foobar'],
+            ['Tag with name "foobar" not found.', null, 'name', 'foobar'],
+        ];
     }
 }

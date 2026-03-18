@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Driver\Form;
 
 use Behat\Mink\Tests\Driver\TestCase;
@@ -78,12 +80,12 @@ class GeneralTest extends TestCase
 
     public function formSubmitWaysDataProvider()
     {
-        return array(
-            array('Save'),
-            array('input-type-image'),
-            array('button-without-type'),
-            array('button-type-submit'),
-        );
+        return [
+            ['Save'],
+            ['input-type-image'],
+            ['button-without-type'],
+            ['button-type-submit'],
+        ];
     }
 
     public function testFormSubmit()
@@ -277,11 +279,11 @@ OUT;
         $this->assertNotNull($button);
         $button->press();
 
-        $toSearch = array(
+        $toSearch = [
             "'agreement' = 'off',",
             "'submit' = 'Login',",
             'no file',
-        );
+        ];
 
         $pageContent = $page->getContent();
 
@@ -297,11 +299,11 @@ OUT;
 
         $page->pressButton('Save');
 
-        $toSearch = array(
+        $toSearch = [
             "'textarea' = '',",
             "'submit' = 'Save',",
             'no file',
-        );
+        ];
 
         $pageContent = $page->getContent();
 

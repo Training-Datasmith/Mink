@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -10,8 +12,8 @@
 
 namespace Behat\Mink\Element;
 
-use Behat\Mink\Session;
 use Behat\Mink\Exception\ElementNotFoundException;
+use Behat\Mink\Session;
 
 /**
  * Page element node.
@@ -202,7 +204,7 @@ class NodeElement extends TraversableElement
      */
     public function isChecked()
     {
-        return (Boolean) $this->getDriver()->isChecked($this->getXpath());
+        return (bool) $this->getDriver()->isChecked($this->getXpath());
     }
 
     /**
@@ -228,9 +230,9 @@ class NodeElement extends TraversableElement
             return;
         }
 
-        $opt = $this->find('named', array(
-            'option', $this->getSelectorsHandler()->xpathLiteral($option)
-        ));
+        $opt = $this->find('named', [
+            'option', $this->getSelectorsHandler()->xpathLiteral($option),
+        ]);
 
         if (null === $opt) {
             throw $this->elementNotFound('select option', 'value|text', $option);
@@ -248,7 +250,7 @@ class NodeElement extends TraversableElement
      */
     public function isSelected()
     {
-        return (Boolean) $this->getDriver()->isSelected($this->getXpath());
+        return (bool) $this->getDriver()->isSelected($this->getXpath());
     }
 
     /**
@@ -270,7 +272,7 @@ class NodeElement extends TraversableElement
      */
     public function isVisible()
     {
-        return (Boolean) $this->getDriver()->isVisible($this->getXpath());
+        return (bool) $this->getDriver()->isVisible($this->getXpath());
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -14,11 +16,11 @@ use Behat\Mink\Element\Element;
 use Behat\Mink\Element\ElementInterface;
 use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Element\TraversableElement;
+use Behat\Mink\Exception\ElementHtmlException;
 use Behat\Mink\Exception\ElementNotFoundException;
+use Behat\Mink\Exception\ElementTextException;
 use Behat\Mink\Exception\ExpectationException;
 use Behat\Mink\Exception\ResponseTextException;
-use Behat\Mink\Exception\ElementHtmlException;
-use Behat\Mink\Exception\ElementTextException;
 
 /**
  * Mink web assertions tool.
@@ -718,7 +720,7 @@ class WebAssert
     {
         $pluralization = $plural ? 's' : '';
 
-        if (in_array($selectorType, array('named', 'named_exact', 'named_partial'))
+        if (in_array($selectorType, ['named', 'named_exact', 'named_partial'])
             && is_array($selector) && 2 === count($selector)
         ) {
             return sprintf('%s%s matching locator "%s"', $selector[0], $pluralization, $selector[1]);

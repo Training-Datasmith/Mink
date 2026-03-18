@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Driver\Basic;
 
 use Behat\Mink\Tests\Driver\TestCase;
@@ -36,12 +38,12 @@ class ContentTest extends TestCase
 
     public function getAttributeDataProvider()
     {
-        return array(
-            array('with-value', 'some-value'),
-            array('without-value', ''),
-            array('with-empty-value', ''),
-            array('with-missing', null),
-        );
+        return [
+            ['with-value', 'some-value'],
+            ['without-value', ''],
+            ['with-empty-value', ''],
+            ['with-missing', null],
+        ];
     }
 
     public function testJson()

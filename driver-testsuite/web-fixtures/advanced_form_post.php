@@ -19,7 +19,7 @@ if (isset($_FILES['about']) && file_exists($_FILES['about']['tmp_name'])) {
     echo $_FILES['about']['name'] . "\n";
     echo file_get_contents($_FILES['about']['tmp_name']);
 } else {
-    echo "no file";
+    echo 'no file';
 }
 ?>
 </body>

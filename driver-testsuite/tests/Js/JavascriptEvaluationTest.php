@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Driver\Js;
 
 use Behat\Mink\Tests\Driver\TestCase;
@@ -49,14 +51,14 @@ class JavascriptEvaluationTest extends TestCase
 
     public function provideExecutedScript()
     {
-        return array(
-            array('document.querySelector("h1").textContent = "Hello world"'),
-            array('document.querySelector("h1").textContent = "Hello world";'),
-            array('function () {document.querySelector("h1").textContent = "Hello world";}()'),
-            array('function () {document.querySelector("h1").textContent = "Hello world";}();'),
-            array('(function () {document.querySelector("h1").textContent = "Hello world";})()'),
-            array('(function () {document.querySelector("h1").textContent = "Hello world";})();'),
-        );
+        return [
+            ['document.querySelector("h1").textContent = "Hello world"'],
+            ['document.querySelector("h1").textContent = "Hello world";'],
+            ['function () {document.querySelector("h1").textContent = "Hello world";}()'],
+            ['function () {document.querySelector("h1").textContent = "Hello world";}();'],
+            ['(function () {document.querySelector("h1").textContent = "Hello world";})()'],
+            ['(function () {document.querySelector("h1").textContent = "Hello world";})();'],
+        ];
     }
 
     /**
@@ -71,15 +73,15 @@ class JavascriptEvaluationTest extends TestCase
 
     public function provideEvaluatedScript()
     {
-        return array(
-            array('1 + 1'),
-            array('1 + 1;'),
-            array('return 1 + 1'),
-            array('return 1 + 1;'),
-            array('function () {return 1+1;}()'),
-            array('(function () {return 1+1;})()'),
-            array('return function () { return 1+1;}()'),
-            array('return (function () {return 1+1;})()'),
-        );
+        return [
+            ['1 + 1'],
+            ['1 + 1;'],
+            ['return 1 + 1'],
+            ['return 1 + 1;'],
+            ['function () {return 1+1;}()'],
+            ['(function () {return 1+1;})()'],
+            ['return function () { return 1+1;}()'],
+            ['return (function () {return 1+1;})()'],
+        ];
     }
 }

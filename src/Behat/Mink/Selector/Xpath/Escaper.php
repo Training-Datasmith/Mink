@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -35,7 +37,7 @@ class Escaper
         }
 
         $string = $s;
-        $parts = array();
+        $parts = [];
         while (true) {
             if (false !== $pos = strpos($string, "'")) {
                 $parts[] = sprintf("'%s'", substr($string, 0, $pos));
@@ -47,6 +49,6 @@ class Escaper
             }
         }
 
-        return sprintf("concat(%s)", implode(',', $parts));
+        return sprintf('concat(%s)', implode(',', $parts));
     }
 }

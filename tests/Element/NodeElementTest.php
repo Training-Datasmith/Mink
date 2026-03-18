@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Element;
 
 use Behat\Mink\Element\NodeElement;
@@ -51,7 +53,7 @@ class NodeElementTest extends ElementTest
             ->expects($this->once())
             ->method('find')
             ->with($elementXpath)
-            ->will($this->returnValue(array($elementXpath)));
+            ->will($this->returnValue([$elementXpath]));
 
         $this->assertTrue($node->isValid());
     }
@@ -64,7 +66,7 @@ class NodeElementTest extends ElementTest
             ->expects($this->exactly(2))
             ->method('find')
             ->with('some xpath')
-            ->will($this->onConsecutiveCalls(array(), array('xpath1', 'xpath2')));
+            ->will($this->onConsecutiveCalls([], ['xpath1', 'xpath2']));
 
         $this->assertFalse($node->isValid(), 'no elements found is invalid element');
         $this->assertFalse($node->isValid(), 'more then 1 element found is invalid element');
@@ -83,7 +85,7 @@ class NodeElementTest extends ElementTest
             } elseif (2 === $callCounter) {
                 return false;
             } elseif (3 === $callCounter) {
-                return array();
+                return [];
             }
 
             return $givenNode;
@@ -293,12 +295,12 @@ class NodeElementTest extends ElementTest
             ->expects($this->once())
             ->method('find')
             ->with('select/option')
-            ->will($this->returnValue(array($option)));
+            ->will($this->returnValue([$option]));
 
         $this->selectors
             ->expects($this->once())
             ->method('selectorToXpath')
-            ->with('named_exact', array('option', 'item1'))
+            ->with('named_exact', ['option', 'item1'])
             ->will($this->returnValue('option'));
 
         $this->driver
@@ -326,12 +328,12 @@ class NodeElementTest extends ElementTest
             ->expects($this->exactly(2))
             ->method('find')
             ->with('select/option')
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
 
         $this->selectors
             ->expects($this->exactly(2))
             ->method('selectorToXpath')
-            ->with($this->logicalOr('named_exact', 'named_partial'), array('option', 'item1'))
+            ->with($this->logicalOr('named_exact', 'named_partial'), ['option', 'item1'])
             ->will($this->returnValue('option'));
 
         $node->selectOption('item1');
@@ -379,7 +381,7 @@ class NodeElementTest extends ElementTest
             ->expects($this->once())
             ->method('find')
             ->with('elem/..')
-            ->will($this->returnValue(array($parent)));
+            ->will($this->returnValue([$parent]));
 
         $this->selectors
             ->expects($this->once())
@@ -554,16 +556,16 @@ class NodeElementTest extends ElementTest
         $this->driver
             ->expects($this->exactly(1))
             ->method('find')
-            ->will($this->returnValueMap(array(
-                array($expected, array(2, 3, 4)),
-            )));
+            ->will($this->returnValueMap([
+                [$expected, [2, 3, 4]],
+            ]));
 
         $this->selectors
             ->expects($this->exactly(1))
             ->method('selectorToXpath')
-            ->will($this->returnValueMap(array(
-                array('xpath', $xpath, $xpath),
-            )));
+            ->will($this->returnValueMap([
+                ['xpath', $xpath, $xpath],
+            ]));
 
         $this->assertEquals(3, count($node->findAll('xpath', $xpath)));
     }
@@ -571,22 +573,22 @@ class NodeElementTest extends ElementTest
     public function testFindAllParentUnion()
     {
         $node = new NodeElement('some_xpath | another_xpath', $this->session);
-        $xpath = "some_tag1 | some_tag2";
-        $expectedPrefixed = "(some_xpath | another_xpath)/some_tag1 | (some_xpath | another_xpath)/some_tag2";
+        $xpath = 'some_tag1 | some_tag2';
+        $expectedPrefixed = '(some_xpath | another_xpath)/some_tag1 | (some_xpath | another_xpath)/some_tag2';
 
         $this->driver
             ->expects($this->exactly(1))
             ->method('find')
-            ->will($this->returnValueMap(array(
-                array($expectedPrefixed, array(2, 3, 4)),
-            )));
+            ->will($this->returnValueMap([
+                [$expectedPrefixed, [2, 3, 4]],
+            ]));
 
         $this->selectors
             ->expects($this->exactly(1))
             ->method('selectorToXpath')
-            ->will($this->returnValueMap(array(
-                array('xpath', $xpath, $xpath),
-            )));
+            ->will($this->returnValueMap([
+                ['xpath', $xpath, $xpath],
+            ]));
 
         $this->assertEquals(3, count($node->findAll('xpath', $xpath)));
     }

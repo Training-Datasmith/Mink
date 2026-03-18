@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Element;
 
 use Behat\Mink\Driver\DriverInterface;
-use Behat\Mink\Session;
 use Behat\Mink\Selector\SelectorsHandler;
+use Behat\Mink\Session;
 
 abstract class ElementTest extends \PHPUnit_Framework_TestCase
 {
@@ -46,11 +48,11 @@ abstract class ElementTest extends \PHPUnit_Framework_TestCase
     protected function mockNamedFinder($xpath, array $results, $locator, $times = 2)
     {
         if (!is_array($results[0])) {
-            $results = array($results, array());
+            $results = [$results, []];
         }
 
         // In case of empty results, a second call will be done using the partial selector
-        $processedResults = array();
+        $processedResults = [];
         foreach ($results as $result) {
             $processedResults[] = $result;
             if (empty($result)) {
@@ -59,7 +61,7 @@ abstract class ElementTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-        $returnValue = call_user_func_array(array($this, 'onConsecutiveCalls'), $processedResults);
+        $returnValue = call_user_func_array([$this, 'onConsecutiveCalls'], $processedResults);
 
         $this->driver
             ->expects($this->exactly($times))

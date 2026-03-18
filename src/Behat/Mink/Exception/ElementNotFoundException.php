@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -38,7 +40,7 @@ class ElementNotFoundException extends ExpectationException
         }
 
         if (null !== $locator) {
-            if (null === $selector || in_array($selector, array('css', 'xpath'))) {
+            if (null === $selector || in_array($selector, ['css', 'xpath'])) {
                 $selector = 'matching '.($selector ?: 'locator');
             } else {
                 $selector = 'with '.$selector;

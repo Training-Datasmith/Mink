@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests;
 
 use Behat\Mink\Mink;
@@ -33,7 +35,7 @@ class MinkTest extends \PHPUnit_Framework_TestCase
 
     public function testRegisterSessionThroughConstructor()
     {
-        $mink = new Mink(array('my' => $this->getSessionMock()));
+        $mink = new Mink(['my' => $this->getSessionMock()]);
 
         $this->assertTrue($mink->hasSession('my'));
     }

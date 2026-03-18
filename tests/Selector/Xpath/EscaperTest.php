@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Selector\Xpath;
 
 use Behat\Mink\Selector\Xpath\Escaper;
@@ -18,14 +20,14 @@ class EscaperTest extends \PHPUnit_Framework_TestCase
 
     public function getXpathLiterals()
     {
-        return array(
-            array('some simple string', "'some simple string'"),
-            array('some "d-brackets" string', "'some \"d-brackets\" string'"),
-            array('some \'s-brackets\' string', "\"some 's-brackets' string\""),
-            array(
+        return [
+            ['some simple string', "'some simple string'"],
+            ['some "d-brackets" string', "'some \"d-brackets\" string'"],
+            ['some \'s-brackets\' string', "\"some 's-brackets' string\""],
+            [
                 'some \'s-brackets\' and "d-brackets" string',
                 'concat(\'some \',"\'",\'s-brackets\',"\'",\' and "d-brackets" string\')',
-            ),
-        );
+            ],
+        ];
     }
 }

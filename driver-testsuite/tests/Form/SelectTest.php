@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Driver\Form;
 
 use Behat\Mink\Tests\Driver\TestCase;
@@ -18,22 +20,22 @@ class SelectTest extends TestCase
         $secondMultiSelect = $webAssert->fieldExists('select_multiple_values[]');
 
         $this->assertEquals('20', $select->getValue());
-        $this->assertSame(array(), $multiSelect->getValue());
-        $this->assertSame(array('2', '3'), $secondMultiSelect->getValue());
+        $this->assertSame([], $multiSelect->getValue());
+        $this->assertSame(['2', '3'], $secondMultiSelect->getValue());
 
         $select->selectOption('thirty');
         $this->assertEquals('30', $select->getValue());
 
         $multiSelect->selectOption('one', true);
 
-        $this->assertSame(array('1'), $multiSelect->getValue());
+        $this->assertSame(['1'], $multiSelect->getValue());
 
         $multiSelect->selectOption('three', true);
 
-        $this->assertEquals(array('1', '3'), $multiSelect->getValue());
+        $this->assertEquals(['1', '3'], $multiSelect->getValue());
 
         $secondMultiSelect->selectOption('two');
-        $this->assertSame(array('2'), $secondMultiSelect->getValue());
+        $this->assertSame(['2'], $secondMultiSelect->getValue());
 
         $button = $page->findButton('Register');
         $this->assertNotNull($button);
@@ -67,7 +69,7 @@ OUT;
         $select = $webAssert->fieldExists($selectName);
 
         $optionValueEscaped = $session->getSelectorsHandler()->xpathLiteral($optionValue);
-        $option = $webAssert->elementExists('named', array('option', $optionValueEscaped));
+        $option = $webAssert->elementExists('named', ['option', $optionValueEscaped]);
 
         $this->assertFalse($option->isSelected());
         $select->selectOption($optionText);
@@ -76,10 +78,10 @@ OUT;
 
     public function testElementSelectedStateCheckDataProvider()
     {
-        return array(
-            array('select_number', '30', 'thirty'),
-            array('select_multiple_numbers[]', '2', 'two'),
-        );
+        return [
+            ['select_number', '30', 'thirty'],
+            ['select_multiple_numbers[]', '2', 'two'],
+        ];
     }
 
     public function testSetValueSingleSelect()
@@ -98,8 +100,8 @@ OUT;
         $session->visit($this->pathTo('/multiselect_form.html'));
         $select = $this->getAssertSession()->fieldExists('select_multiple_values[]');
 
-        $select->setValue(array('1', '2'));
-        $this->assertEquals(array('1', '2'), $select->getValue());
+        $select->setValue(['1', '2']);
+        $this->assertEquals(['1', '2'], $select->getValue());
     }
 
     /**

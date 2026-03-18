@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -11,8 +13,8 @@
 namespace Behat\Mink;
 
 use Behat\Mink\Driver\DriverInterface;
-use Behat\Mink\Selector\SelectorsHandler;
 use Behat\Mink\Element\DocumentElement;
+use Behat\Mink\Selector\SelectorsHandler;
 
 /**
  * Mink session.

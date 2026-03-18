@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Driver\Js;
 
 use Behat\Mink\Tests\Driver\TestCase;
@@ -57,15 +59,15 @@ class ChangeEventTest extends TestCase
 
     public function setValueChangeEventDataProvider()
     {
-        return array(
-            'input default' => array('the-input-default', 'from empty', 'from existing'),
-            'input text' => array('the-input-text', 'from empty', 'from existing'),
-            'input email' => array('the-email', 'from empty', 'from existing'),
-            'textarea' => array('the-textarea', 'from empty', 'from existing'),
-            'file' => array('the-file', 'from empty', 'from existing'),
-            'select' => array('the-select', '30'),
-            'radio' => array('the-radio-m', 'm'),
-        );
+        return [
+            'input default' => ['the-input-default', 'from empty', 'from existing'],
+            'input text' => ['the-input-text', 'from empty', 'from existing'],
+            'input email' => ['the-email', 'from empty', 'from existing'],
+            'textarea' => ['the-textarea', 'from empty', 'from existing'],
+            'file' => ['the-file', 'from empty', 'from existing'],
+            'select' => ['the-select', '30'],
+            'radio' => ['the-radio-m', 'm'],
+        ];
     }
 
     /**
@@ -86,10 +88,10 @@ class ChangeEventTest extends TestCase
 
     public function selectOptionChangeEventDataProvider()
     {
-        return array(
-            'select' => array('the-select', '30'),
-            'radio' => array('the-radio-m', 'm'),
-        );
+        return [
+            'select' => ['the-select', '30'],
+            'radio' => ['the-radio-m', 'm'],
+        ];
     }
 
     /**
@@ -136,10 +138,10 @@ class ChangeEventTest extends TestCase
 
     public function checkboxTestWayDataProvider()
     {
-        return array(
-            array(true),
-            array(false),
-        );
+        return [
+            [true],
+            [false],
+        ];
     }
 
     private function assertElementChangeCount($elementId, $message = '')

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -30,7 +32,7 @@ abstract class TraversableElement extends Element
     {
         $id = $this->getSelectorsHandler()->xpathLiteral($id);
 
-        return $this->find('named', array('id', $id));
+        return $this->find('named', ['id', $id]);
     }
 
     /**
@@ -54,9 +56,9 @@ abstract class TraversableElement extends Element
      */
     public function findLink($locator)
     {
-        return $this->find('named', array(
-            'link', $this->getSelectorsHandler()->xpathLiteral($locator)
-        ));
+        return $this->find('named', [
+            'link', $this->getSelectorsHandler()->xpathLiteral($locator),
+        ]);
     }
 
     /**
@@ -98,9 +100,9 @@ abstract class TraversableElement extends Element
      */
     public function findButton($locator)
     {
-        return $this->find('named', array(
-            'button', $this->getSelectorsHandler()->xpathLiteral($locator)
-        ));
+        return $this->find('named', [
+            'button', $this->getSelectorsHandler()->xpathLiteral($locator),
+        ]);
     }
 
     /**
@@ -142,9 +144,9 @@ abstract class TraversableElement extends Element
      */
     public function findField($locator)
     {
-        return $this->find('named', array(
-            'field', $this->getSelectorsHandler()->xpathLiteral($locator)
-        ));
+        return $this->find('named', [
+            'field', $this->getSelectorsHandler()->xpathLiteral($locator),
+        ]);
     }
 
     /**
@@ -245,9 +247,9 @@ abstract class TraversableElement extends Element
      */
     public function hasSelect($locator)
     {
-        return $this->has('named', array(
-            'select', $this->getSelectorsHandler()->xpathLiteral($locator)
-        ));
+        return $this->has('named', [
+            'select', $this->getSelectorsHandler()->xpathLiteral($locator),
+        ]);
     }
 
     /**
@@ -281,9 +283,9 @@ abstract class TraversableElement extends Element
      */
     public function hasTable($locator)
     {
-        return $this->has('named', array(
-            'table', $this->getSelectorsHandler()->xpathLiteral($locator)
-        ));
+        return $this->has('named', [
+            'table', $this->getSelectorsHandler()->xpathLiteral($locator),
+        ]);
     }
 
     /**

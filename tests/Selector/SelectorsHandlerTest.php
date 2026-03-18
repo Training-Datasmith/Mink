@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Selector;
 
 use Behat\Mink\Selector\SelectorsHandler;
@@ -22,7 +24,7 @@ class SelectorsHandlerTest extends \PHPUnit_Framework_TestCase
     public function testRegisterSelectorThroughConstructor()
     {
         $selector = $this->getMockBuilder('Behat\Mink\Selector\SelectorInterface')->getMock();
-        $handler = new SelectorsHandler(array('custom' => $selector));
+        $handler = new SelectorsHandler(['custom' => $selector]);
 
         $this->assertTrue($handler->isSelectorRegistered('custom'));
         $this->assertSame($selector, $handler->getSelector('custom'));
@@ -43,7 +45,7 @@ class SelectorsHandlerTest extends \PHPUnit_Framework_TestCase
     public function testXpathSelectorThrowsExceptionForArrayLocator()
     {
         $handler = new SelectorsHandler();
-        $handler->selectorToXpath('xpath', array('some_xpath'));
+        $handler->selectorToXpath('xpath', ['some_xpath']);
     }
 
     public function testXpathSelectorIsReturnedAsIs()

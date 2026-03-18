@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -24,14 +26,14 @@ class Mink
      *
      * @var Session[]
      */
-    private $sessions = array();
+    private $sessions = [];
 
     /**
      * Initializes manager.
      *
      * @param Session[] $sessions
      */
-    public function __construct(array $sessions = array())
+    public function __construct(array $sessions = [])
     {
         foreach ($sessions as $name => $session) {
             $this->registerSession($name, $session);

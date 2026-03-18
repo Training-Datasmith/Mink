@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -87,7 +89,7 @@ class ExpectationException extends Exception
      */
     protected function pipeString($string)
     {
-        return '|  ' . strtr($string, array("\n" => "\n|  "));
+        return '|  ' . strtr($string, ["\n" => "\n|  "]);
     }
 
     /**
@@ -99,7 +101,7 @@ class ExpectationException extends Exception
      */
     protected function trimBody($string)
     {
-        return preg_replace(array('/^.*<body>/s', '/<\/body>.*$/s'), array('<body>', '</body>'), $string);
+        return preg_replace(['/^.*<body>/s', '/<\/body>.*$/s'], ['<body>', '</body>'], $string);
     }
 
     /**

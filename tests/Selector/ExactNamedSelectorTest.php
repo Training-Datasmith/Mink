@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Selector;
 
 use Behat\Mink\Selector\ExactNamedSelector;

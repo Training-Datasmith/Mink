@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -621,15 +623,15 @@ interface DriverInterface
      */
     public function maximizeWindow($name = null);
 
-     /**
-      * Submits the form.
-      *
-      * @param string $xpath Xpath.
-      *
-      * @throws UnsupportedDriverActionException When operation not supported by the driver
-      * @throws DriverException                  When the operation cannot be done
-      *
-      * @see \Behat\Mink\Element\NodeElement::submitForm
-      */
+    /**
+     * Submits the form.
+     *
+     * @param string $xpath Xpath.
+     *
+     * @throws UnsupportedDriverActionException When operation not supported by the driver
+     * @throws DriverException                  When the operation cannot be done
+     *
+     * @see \Behat\Mink\Element\NodeElement::submitForm
+     */
     public function submitForm($xpath);
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -10,8 +12,8 @@
 
 namespace Behat\Mink\Exception;
 
-use Behat\Mink\Session;
 use Behat\Mink\Element\Element;
+use Behat\Mink\Session;
 
 /**
  * Exception thrown when an expectation on the HTML of an element fails.

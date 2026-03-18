@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -17,7 +19,7 @@ namespace Behat\Mink\Selector;
  */
 class NamedSelector implements SelectorInterface
 {
-    private $replacements = array(
+    private $replacements = [
         // simple replacements
         '%lowercaseType%' => "translate(./@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')",
         '%lowercaseRole%' => "translate(./@role, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')",
@@ -44,9 +46,9 @@ class NamedSelector implements SelectorInterface
         '%buttonMatch%' => '%idOrNameMatch% or %valueMatch% or %titleMatch%',
         '%linkMatch%' => '(%idMatch% or %tagTextMatch% or %titleMatch% or %relMatch%)',
         '%imgAltMatch%' => './/img[%altMatch%]',
-    );
+    ];
 
-    private $selectors = array(
+    private $selectors = [
         'fieldset' => <<<XPATH
 .//fieldset
 [(%idMatch% or .//legend[%tagTextMatch%])]
@@ -156,7 +158,7 @@ XPATH
     ,'id_or_name' => <<<XPATH
 .//*[%idOrNameMatch%]
 XPATH
-    );
+    ];
 
     /**
      * Creates selector instance.
@@ -217,7 +219,7 @@ XPATH
         $xpath = $this->selectors[$selector];
 
         if (null !== $locator) {
-            return strtr($xpath, array('%locator%' => $locator));
+            return strtr($xpath, ['%locator%' => $locator]);
         }
 
         return $xpath;

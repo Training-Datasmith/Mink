@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Driver\Basic;
 
 use Behat\Mink\Tests\Driver\TestCase;
@@ -22,10 +24,10 @@ class BasicAuthTest extends TestCase
 
     public function setBasicAuthDataProvider()
     {
-        return array(
-            array('mink-user', 'mink-password', 'is authenticated'),
-            array('', '', 'is not authenticated'),
-        );
+        return [
+            ['mink-user', 'mink-password', 'is authenticated'],
+            ['', '', 'is not authenticated'],
+        ];
     }
 
     public function testResetBasicAuth()

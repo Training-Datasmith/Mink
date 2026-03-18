@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Element;
 
 use Behat\Mink\Element\DocumentElement;
@@ -32,18 +34,18 @@ class DocumentElementTest extends ElementTest
         $this->driver
             ->expects($this->exactly(2))
             ->method('find')
-            ->will($this->returnValueMap(array(
-                array('//html/' . $xpath, array(2, 3, 4)),
-                array('//html/' . $css, array(1, 2)),
-            )));
+            ->will($this->returnValueMap([
+                ['//html/' . $xpath, [2, 3, 4]],
+                ['//html/' . $css, [1, 2]],
+            ]));
 
         $this->selectors
             ->expects($this->exactly(2))
             ->method('selectorToXpath')
-            ->will($this->returnValueMap(array(
-                array('xpath', $xpath, $xpath),
-                array('css', $css, $css),
-            )));
+            ->will($this->returnValueMap([
+                ['xpath', $xpath, $xpath],
+                ['css', $css, $css],
+            ]));
 
         $this->assertEquals(3, count($this->document->findAll('xpath', $xpath)));
         $this->assertEquals(2, count($this->document->findAll('css', $css)));
@@ -55,7 +57,7 @@ class DocumentElementTest extends ElementTest
             ->expects($this->exactly(3))
             ->method('find')
             ->with('//html/h3[a]')
-            ->will($this->onConsecutiveCalls(array(2, 3, 4), array(1, 2), array()));
+            ->will($this->onConsecutiveCalls([2, 3, 4], [1, 2], []));
 
         $xpath = 'h3[a]';
         $css = 'h3 > a';
@@ -63,11 +65,11 @@ class DocumentElementTest extends ElementTest
         $this->selectors
             ->expects($this->exactly(3))
             ->method('selectorToXpath')
-            ->will($this->returnValueMap(array(
-                array('xpath', $xpath, $xpath),
-                array('xpath', $xpath, $xpath),
-                array('css', $css, $xpath),
-            )));
+            ->will($this->returnValueMap([
+                ['xpath', $xpath, $xpath],
+                ['xpath', $xpath, $xpath],
+                ['css', $css, $xpath],
+            ]));
 
         $this->assertEquals(2, $this->document->find('xpath', $xpath));
         $this->assertEquals(1, $this->document->find('css', $css));
@@ -78,8 +80,8 @@ class DocumentElementTest extends ElementTest
     {
         $this->mockNamedFinder(
             '//field',
-            array('field1', 'field2', 'field3'),
-            array('field', 'some field')
+            ['field1', 'field2', 'field3'],
+            ['field', 'some field']
         );
 
         $this->assertEquals('field1', $this->document->findField('some field'));
@@ -90,8 +92,8 @@ class DocumentElementTest extends ElementTest
     {
         $this->mockNamedFinder(
             '//link',
-            array('link1', 'link2', 'link3'),
-            array('link', 'some link')
+            ['link1', 'link2', 'link3'],
+            ['link', 'some link']
         );
 
         $this->assertEquals('link1', $this->document->findLink('some link'));
@@ -102,8 +104,8 @@ class DocumentElementTest extends ElementTest
     {
         $this->mockNamedFinder(
             '//button',
-            array('button1', 'button2', 'button3'),
-            array('button', 'some button')
+            ['button1', 'button2', 'button3'],
+            ['button', 'some button']
         );
 
         $this->assertEquals('button1', $this->document->findButton('some button'));
@@ -114,7 +116,7 @@ class DocumentElementTest extends ElementTest
     {
         $xpath = '//*[@id=some-item-2]';
 
-        $this->mockNamedFinder($xpath, array(array('id2', 'id3'), array()), array('id', 'some-item-2'));
+        $this->mockNamedFinder($xpath, [['id2', 'id3'], []], ['id', 'some-item-2']);
 
         $this->assertEquals('id2', $this->document->findById('some-item-2'));
         $this->assertEquals(null, $this->document->findById('some-item-2'));
@@ -126,7 +128,7 @@ class DocumentElementTest extends ElementTest
             ->expects($this->exactly(2))
             ->method('find')
             ->with('//html/some xpath')
-            ->will($this->onConsecutiveCalls(array('id2', 'id3'), array()));
+            ->will($this->onConsecutiveCalls(['id2', 'id3'], []));
 
         $this->selectors
             ->expects($this->exactly(2))
@@ -142,8 +144,8 @@ class DocumentElementTest extends ElementTest
     {
         $this->mockNamedFinder(
             '//some content',
-            array('item1', 'item2'),
-            array('content', 'some content')
+            ['item1', 'item2'],
+            ['content', 'some content']
         );
 
         $this->assertTrue($this->document->hasContent('some content'));
@@ -154,8 +156,8 @@ class DocumentElementTest extends ElementTest
     {
         $this->mockNamedFinder(
             '//link',
-            array('link1', 'link2', 'link3'),
-            array('link', 'some link')
+            ['link1', 'link2', 'link3'],
+            ['link', 'some link']
         );
 
         $this->assertTrue($this->document->hasLink('some link'));
@@ -166,8 +168,8 @@ class DocumentElementTest extends ElementTest
     {
         $this->mockNamedFinder(
             '//button',
-            array('button1', 'button2', 'button3'),
-            array('button', 'some button')
+            ['button1', 'button2', 'button3'],
+            ['button', 'some button']
         );
 
         $this->assertTrue($this->document->hasButton('some button'));
@@ -178,8 +180,8 @@ class DocumentElementTest extends ElementTest
     {
         $this->mockNamedFinder(
             '//field',
-            array('field1', 'field2', 'field3'),
-            array('field', 'some field')
+            ['field1', 'field2', 'field3'],
+            ['field', 'some field']
         );
 
         $this->assertTrue($this->document->hasField('some field'));
@@ -198,8 +200,8 @@ class DocumentElementTest extends ElementTest
 
         $this->mockNamedFinder(
             '//field',
-            array(array($checkbox), array(), array($checkbox)),
-            array('field', 'some checkbox'),
+            [[$checkbox], [], [$checkbox]],
+            ['field', 'some checkbox'],
             3
         );
 
@@ -220,8 +222,8 @@ class DocumentElementTest extends ElementTest
 
         $this->mockNamedFinder(
             '//field',
-            array(array($checkbox), array(), array($checkbox)),
-            array('field', 'some checkbox'),
+            [[$checkbox], [], [$checkbox]],
+            ['field', 'some checkbox'],
             3
         );
 
@@ -234,8 +236,8 @@ class DocumentElementTest extends ElementTest
     {
         $this->mockNamedFinder(
             '//select',
-            array('select'),
-            array('select', 'some select field')
+            ['select'],
+            ['select', 'some select field']
         );
 
         $this->assertTrue($this->document->hasSelect('some select field'));
@@ -246,8 +248,8 @@ class DocumentElementTest extends ElementTest
     {
         $this->mockNamedFinder(
             '//table',
-            array('table'),
-            array('table', 'some table')
+            ['table'],
+            ['table', 'some table']
         );
 
         $this->assertTrue($this->document->hasTable('some table'));
@@ -265,8 +267,8 @@ class DocumentElementTest extends ElementTest
 
         $this->mockNamedFinder(
             '//link',
-            array($node),
-            array('link', 'some link')
+            [$node],
+            ['link', 'some link']
         );
 
         $this->document->clickLink('some link');
@@ -285,8 +287,8 @@ class DocumentElementTest extends ElementTest
 
         $this->mockNamedFinder(
             '//button',
-            array($node),
-            array('button', 'some button')
+            [$node],
+            ['button', 'some button']
         );
 
         $this->document->pressButton('some button');
@@ -306,8 +308,8 @@ class DocumentElementTest extends ElementTest
 
         $this->mockNamedFinder(
             '//field',
-            array($node),
-            array('field', 'some field')
+            [$node],
+            ['field', 'some field']
         );
 
         $this->document->fillField('some field', 'some val');
@@ -326,8 +328,8 @@ class DocumentElementTest extends ElementTest
 
         $this->mockNamedFinder(
             '//field',
-            array($node),
-            array('field', 'some field')
+            [$node],
+            ['field', 'some field']
         );
 
         $this->document->checkField('some field');
@@ -346,8 +348,8 @@ class DocumentElementTest extends ElementTest
 
         $this->mockNamedFinder(
             '//field',
-            array($node),
-            array('field', 'some field')
+            [$node],
+            ['field', 'some field']
         );
 
         $this->document->uncheckField('some field');
@@ -367,8 +369,8 @@ class DocumentElementTest extends ElementTest
 
         $this->mockNamedFinder(
             '//field',
-            array($node),
-            array('field', 'some field')
+            [$node],
+            ['field', 'some field']
         );
 
         $this->document->selectFieldOption('some field', 'option2');
@@ -388,8 +390,8 @@ class DocumentElementTest extends ElementTest
 
         $this->mockNamedFinder(
             '//field',
-            array($node),
-            array('field', 'some field')
+            [$node],
+            ['field', 'some field']
         );
 
         $this->document->attachFileToField('some field', '/path/to/file');

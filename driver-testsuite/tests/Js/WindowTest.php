@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Driver\Js;
 
 use Behat\Mink\Tests\Driver\TestCase;
@@ -63,7 +65,7 @@ class WindowTest extends TestCase
         $session->resizeWindow(400, 300);
         $session->wait(1000, 'false');
 
-        $script = "return Math.abs(window.outerHeight - 300) <= 100 && Math.abs(window.outerWidth - 400) <= 100;";
+        $script = 'return Math.abs(window.outerHeight - 300) <= 100 && Math.abs(window.outerWidth - 400) <= 100;';
 
         $this->assertTrue($session->evaluateScript($script));
     }
@@ -76,7 +78,7 @@ class WindowTest extends TestCase
         $session->maximizeWindow();
         $session->wait(1000, 'false');
 
-        $script = "return Math.abs(screen.availHeight - window.outerHeight) <= 100;";
+        $script = 'return Math.abs(screen.availHeight - window.outerHeight) <= 100;';
 
         $this->assertTrue($session->evaluateScript($script));
     }

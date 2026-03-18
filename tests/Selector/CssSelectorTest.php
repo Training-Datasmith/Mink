@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Behat\Mink\Tests\Selector;
 
 use Behat\Mink\Selector\CssSelector;
@@ -36,6 +38,6 @@ class CssSelectorTest extends \PHPUnit_Framework_TestCase
     {
         $selector = new CssSelector();
 
-        $selector->translateToXPath(array('h3'));
+        $selector->translateToXPath(['h3']);
     }
 }

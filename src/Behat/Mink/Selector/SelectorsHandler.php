@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -27,7 +29,7 @@ class SelectorsHandler
      *
      * @param SelectorInterface[] $selectors default selectors to register
      */
-    public function __construct(array $selectors = array())
+    public function __construct(array $selectors = [])
     {
         $this->escaper = new Escaper();
 
