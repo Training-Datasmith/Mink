@@ -217,7 +217,7 @@ XPATH
         $xpath = $this->selectors[$selector];
 
         if (null !== $locator) {
-            $xpath = strtr($xpath, array('%locator%' => $locator));
+            return strtr($xpath, array('%locator%' => $locator));
         }
 
         return $xpath;

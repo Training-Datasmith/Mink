@@ -50,7 +50,6 @@ class Mink
      * Registers new session.
      *
      * @param string  $name
-     * @param Session $session
      */
     public function registerSession($name, Session $session)
     {
@@ -209,8 +208,6 @@ class Mink
             throw new \InvalidArgumentException(sprintf('Session "%s" is not registered.', $name));
         }
 
-        $session = $this->sessions[$name];
-
-        return $session;
+        return $this->sessions[$name];
     }
 }

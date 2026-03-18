@@ -27,9 +27,6 @@ class Session
 
     /**
      * Initializes session.
-     *
-     * @param DriverInterface  $driver
-     * @param SelectorsHandler $selectorsHandler
      */
     public function __construct(DriverInterface $driver, SelectorsHandler $selectorsHandler = null)
     {

@@ -24,8 +24,6 @@ interface DriverInterface
 {
     /**
      * Sets driver's current session.
-     *
-     * @param Session $session
      */
     public function setSession(Session $session);
 

@@ -99,9 +99,7 @@ class ExpectationException extends Exception
      */
     protected function trimBody($string)
     {
-        $string = preg_replace(array('/^.*<body>/s', '/<\/body>.*$/s'), array('<body>', '</body>'), $string);
-
-        return $string;
+        return preg_replace(array('/^.*<body>/s', '/<\/body>.*$/s'), array('<body>', '</body>'), $string);
     }
 
     /**
@@ -138,8 +136,7 @@ class ExpectationException extends Exception
         } catch (UnsupportedDriverActionException $e) {
             // Ignore the status code when not supported
         }
-        $info .= $this->session->getCurrentUrl().' | '.$driver." ]\n|\n";
 
-        return $info;
+        return $info . ($this->session->getCurrentUrl() . ' | ' . $driver . " ]\n|\n");
     }
 }

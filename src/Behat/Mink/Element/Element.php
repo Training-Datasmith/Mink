@@ -47,8 +47,6 @@ abstract class Element implements ElementInterface
 
     /**
      * Initialize element.
-     *
-     * @param Session $session
      */
     public function __construct(Session $session)
     {
@@ -150,7 +148,7 @@ abstract class Element implements ElementInterface
         if ('named' === $selector) {
             $items = $this->findAll('named_exact', $locator);
             if (empty($items)) {
-                $items = $this->findAll('named_partial', $locator);
+                return $this->findAll('named_partial', $locator);
             }
 
             return $items;
