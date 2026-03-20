@@ -17,7 +17,7 @@ namespace Behat\Mink;
  */
 class Mink
 {
-    private $default_session_name;
+    private ?string $default_session_name = null;
     /**
      * Sessions.
      *
@@ -47,30 +47,42 @@ class Mink
      *
      * @param string  $name
      */
-    public function register_session($name, Session $session)
+    /**
+     * Registers a new named session.
+     *
+     * The name is normalised to lowercase so 'Firefox' and 'firefox' refer to the same session.
+     *
+     * @param string  $name    Unique case-insensitive name for this session
+     * @param Session $session Configured but not yet started session instance
+     *
+     * @return void
+     */
+    public function register_session(string $name, Session $session): void
     {
         $name = strtolower($name);
         $this->sessions[$name] = $session;
     }
     /**
-     * Checks whether session with specified name is registered.
+     * Checks whether a session with the specified name is registered.
      *
-     * @param string $name
+     * @param string $name Case-insensitive session name to look up
      *
-     * @return Boolean
+     * @return bool True if the session is registered, false otherwise
      */
-    public function has_session($name)
+    public function has_session(string $name): bool
     {
         return isset($this->sessions[strtolower($name)]);
     }
     /**
-     * Sets default session name to use.
+     * Sets the default session name used when no name is passed to get_session().
      *
-     * @param string $name name of the registered session
+     * @param string $name Case-insensitive name of an already-registered session
      *
-     * @throws \InvalidArgumentException
+     * @return void
+     *
+     * @throws \InvalidArgumentException If no session with the given name has been registered
      */
-    public function set_default_session_name($name)
+    public function set_default_session_name(string $name): void
     {
         $name = strtolower($name);
         if (!isset($this->sessions[$name])) {
@@ -79,11 +91,11 @@ class Mink
         $this->default_session_name = $name;
     }
     /**
-     * Returns default session name or null if none.
+     * Returns the default session name or null if none has been set.
      *
-     * @return null|string
+     * @return string|null The default session name in lowercase, or null if unset
      */
-    public function get_default_session_name()
+    public function get_default_session_name(): ?string
     {
         return $this->default_session_name;
     }
@@ -96,7 +108,16 @@ class Mink
      *
      * @throws \InvalidArgumentException If the named session is not registered
      */
-    public function get_session($name = null)
+    /**
+     * Returns the registered session by name (or the default session), starting it if not yet started.
+     *
+     * @param string|null $name Case-insensitive session name, or null to use the default session
+     *
+     * @return Session The started session instance
+     *
+     * @throws \InvalidArgumentException If no name is given and no default is set, or the name is not registered
+     */
+    public function get_session(?string $name = null): Session
     {
         $session = $this->locate_session($name);
         // start session if needed
@@ -106,27 +127,27 @@ class Mink
         return $session;
     }
     /**
-     * Checks whether a named session (or the default session) has already been started
+     * Checks whether a named session (or the default session) has already been started.
      *
-     * @param string $name session name - if null then the default session will be checked
+     * @param string|null $name Case-insensitive session name, or null to check the default session
      *
-     * @return bool whether the session has been started
+     * @return bool True if the session has been started, false otherwise
      *
      * @throws \InvalidArgumentException If the named session is not registered
      */
-    public function is_session_started($name = null)
+    public function is_session_started(?string $name = null): bool
     {
         $session = $this->locate_session($name);
         return $session->is_started();
     }
     /**
-     * Returns session asserter.
+     * Returns a Web_Assert helper for the given session (starts it if needed).
      *
-     * @param Session|string $session session object or name
+     * @param Session|string|null $session Session instance, case-insensitive name, or null for the default session
      *
-     * @return WebAssert
+     * @return Web_Assert An assertion helper bound to the resolved session
      */
-    public function assert_session($session = null)
+    public function assert_session(Session|string|null $session = null): Web_Assert
     {
         if (!$session instanceof Session) {
             $session = $this->get_session($session);
@@ -136,7 +157,12 @@ class Mink
     /**
      * Resets all started sessions.
      */
-    public function reset_sessions()
+    /**
+     * Resets all started sessions to their initial state without stopping them.
+     *
+     * @return void
+     */
+    public function reset_sessions(): void
     {
         foreach ($this->sessions as $session) {
             if ($session->is_started()) {
@@ -145,9 +171,11 @@ class Mink
         }
     }
     /**
-     * Restarts all started sessions.
+     * Restarts all started sessions (stops then starts each).
+     *
+     * @return void
      */
-    public function restart_sessions()
+    public function restart_sessions(): void
     {
         foreach ($this->sessions as $session) {
             if ($session->is_started()) {
@@ -156,9 +184,11 @@ class Mink
         }
     }
     /**
-     * Stops all started sessions.
+     * Stops all started sessions, releasing browser resources.
+     *
+     * @return void
      */
-    public function stop_sessions()
+    public function stop_sessions(): void
     {
         foreach ($this->sessions as $session) {
             if ($session->is_started()) {
@@ -169,13 +199,13 @@ class Mink
     /**
      * Returns the named or default session without starting it.
      *
-     * @param string $name session name
+     * @param string|null $name Case-insensitive session name, or null to use the default session
      *
-     * @return Session
+     * @return Session The session instance (not yet started if it has not been started)
      *
-     * @throws \InvalidArgumentException If the named session is not registered
+     * @throws \InvalidArgumentException If no name is given and no default is set, or the name is not registered
      */
-    protected function locate_session($name = null)
+    protected function locate_session(?string $name = null): Session
     {
         $name = strtolower($name) ?: $this->default_session_name;
         if (null === $name) {
