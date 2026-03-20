@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -9,11 +8,9 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Behat\Mink\Exception;
 
 use Behat\Mink\Session;
-
 /**
  * Exception thrown for failed expectations.
  *
@@ -21,10 +18,9 @@ use Behat\Mink\Session;
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class ExpectationException extends Exception
+class Expectation_Exception extends Exception
 {
     private $session;
-
     /**
      * Initializes exception.
      *
@@ -35,14 +31,11 @@ class ExpectationException extends Exception
     public function __construct($message, Session $session, \Exception $exception = null)
     {
         $this->session = $session;
-
         if (!$message && null !== $exception) {
-            $message = $exception->getMessage();
+            $message = $exception->get_message();
         }
-
         parent::__construct($message, 0, $exception);
     }
-
     /**
      * Returns exception message with additional context info.
      *
@@ -51,35 +44,31 @@ class ExpectationException extends Exception
     public function __toString()
     {
         try {
-            $pageText = $this->pipeString($this->trimString($this->getContext()) . "\n");
-            $string   = sprintf("%s\n\n%s%s", $this->getMessage(), $this->getResponseInfo(), $pageText);
+            $page_text = $this->pipe_string($this->trim_string($this->get_context()) . "\n");
+            $string = sprintf("%s\n\n%s%s", $this->get_message(), $this->get_response_info(), $page_text);
         } catch (\Exception $e) {
-            return $this->getMessage();
+            return $this->get_message();
         }
-
         return $string;
     }
-
     /**
      * Gets the context rendered for this exception
      *
      * @return string
      */
-    protected function getContext()
+    protected function get_context()
     {
-        return $this->trimBody($this->getSession()->getPage()->getContent());
+        return $this->trim_body($this->get_session()->get_page()->get_content());
     }
-
     /**
      * Returns exception session.
      *
      * @return Session
      */
-    protected function getSession()
+    protected function get_session()
     {
         return $this->session;
     }
-
     /**
      * Prepends every line in a string with pipe (|).
      *
@@ -87,11 +76,10 @@ class ExpectationException extends Exception
      *
      * @return string
      */
-    protected function pipeString($string)
+    protected function pipe_string($string)
     {
         return '|  ' . strtr($string, ["\n" => "\n|  "]);
     }
-
     /**
      * Removes response header/footer, letting only <body /> content.
      *
@@ -99,11 +87,10 @@ class ExpectationException extends Exception
      *
      * @return string
      */
-    protected function trimBody($string)
+    protected function trim_body($string)
     {
         return preg_replace(['/^.*<body>/s', '/<\/body>.*$/s'], ['<body>', '</body>'], $string);
     }
-
     /**
      * Trims string to specified number of chars.
      *
@@ -112,33 +99,28 @@ class ExpectationException extends Exception
      *
      * @return string
      */
-    protected function trimString($string, $count = 1000)
+    protected function trim_string($string, $count = 1000)
     {
         $string = trim($string);
-
         if ($count < mb_strlen($string)) {
             return mb_substr($string, 0, $count - 3) . '...';
         }
-
         return $string;
     }
-
     /**
      * Returns response information string.
      *
      * @return string
      */
-    protected function getResponseInfo()
+    protected function get_response_info()
     {
-        $driver = basename(str_replace('\\', '/', get_class($this->session->getDriver())));
-
+        $driver = basename(str_replace('\\', '/', get_class($this->session->get_driver())));
         $info = '+--[ ';
         try {
-            $info .= 'HTTP/1.1 '.$this->session->getStatusCode().' | ';
-        } catch (UnsupportedDriverActionException $e) {
+            $info .= 'HTTP/1.1 ' . $this->session->get_status_code() . ' | ';
+        } catch (Unsupported_Driver_Action_Exception $e) {
             // Ignore the status code when not supported
         }
-
-        return $info . ($this->session->getCurrentUrl() . ' | ' . $driver . " ]\n|\n");
+        return $info . ($this->session->get_current_url() . ' | ' . $driver . " ]\n|\n");
     }
 }

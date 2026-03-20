@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -9,7 +8,6 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Behat\Mink;
 
 /**
@@ -19,15 +17,13 @@ namespace Behat\Mink;
  */
 class Mink
 {
-    private $defaultSessionName;
-
+    private $default_session_name;
     /**
      * Sessions.
      *
      * @var Session[]
      */
     private $sessions = [];
-
     /**
      * Initializes manager.
      *
@@ -36,30 +32,26 @@ class Mink
     public function __construct(array $sessions = [])
     {
         foreach ($sessions as $name => $session) {
-            $this->registerSession($name, $session);
+            $this->register_session($name, $session);
         }
     }
-
     /**
      * Stops all started sessions.
      */
     public function __destruct()
     {
-        $this->stopSessions();
+        $this->stop_sessions();
     }
-
     /**
      * Registers new session.
      *
      * @param string  $name
      */
-    public function registerSession($name, Session $session)
+    public function register_session($name, Session $session)
     {
         $name = strtolower($name);
-
         $this->sessions[$name] = $session;
     }
-
     /**
      * Checks whether session with specified name is registered.
      *
@@ -67,11 +59,10 @@ class Mink
      *
      * @return Boolean
      */
-    public function hasSession($name)
+    public function has_session($name)
     {
         return isset($this->sessions[strtolower($name)]);
     }
-
     /**
      * Sets default session name to use.
      *
@@ -79,27 +70,23 @@ class Mink
      *
      * @throws \InvalidArgumentException
      */
-    public function setDefaultSessionName($name)
+    public function set_default_session_name($name)
     {
         $name = strtolower($name);
-
         if (!isset($this->sessions[$name])) {
             throw new \InvalidArgumentException(sprintf('Session "%s" is not registered.', $name));
         }
-
-        $this->defaultSessionName = $name;
+        $this->default_session_name = $name;
     }
-
     /**
      * Returns default session name or null if none.
      *
      * @return null|string
      */
-    public function getDefaultSessionName()
+    public function get_default_session_name()
     {
-        return $this->defaultSessionName;
+        return $this->default_session_name;
     }
-
     /**
      * Returns registered session by it's name or active one and automatically starts it if required.
      *
@@ -109,18 +96,15 @@ class Mink
      *
      * @throws \InvalidArgumentException If the named session is not registered
      */
-    public function getSession($name = null)
+    public function get_session($name = null)
     {
-        $session = $this->locateSession($name);
-
+        $session = $this->locate_session($name);
         // start session if needed
-        if (!$session->isStarted()) {
+        if (!$session->is_started()) {
             $session->start();
         }
-
         return $session;
     }
-
     /**
      * Checks whether a named session (or the default session) has already been started
      *
@@ -130,13 +114,11 @@ class Mink
      *
      * @throws \InvalidArgumentException If the named session is not registered
      */
-    public function isSessionStarted($name = null)
+    public function is_session_started($name = null)
     {
-        $session = $this->locateSession($name);
-
-        return $session->isStarted();
+        $session = $this->locate_session($name);
+        return $session->is_started();
     }
-
     /**
      * Returns session asserter.
      *
@@ -144,51 +126,46 @@ class Mink
      *
      * @return WebAssert
      */
-    public function assertSession($session = null)
+    public function assert_session($session = null)
     {
-        if (!($session instanceof Session)) {
-            $session = $this->getSession($session);
+        if (!$session instanceof Session) {
+            $session = $this->get_session($session);
         }
-
-        return new WebAssert($session);
+        return new Web_Assert($session);
     }
-
     /**
      * Resets all started sessions.
      */
-    public function resetSessions()
+    public function reset_sessions()
     {
         foreach ($this->sessions as $session) {
-            if ($session->isStarted()) {
+            if ($session->is_started()) {
                 $session->reset();
             }
         }
     }
-
     /**
      * Restarts all started sessions.
      */
-    public function restartSessions()
+    public function restart_sessions()
     {
         foreach ($this->sessions as $session) {
-            if ($session->isStarted()) {
+            if ($session->is_started()) {
                 $session->restart();
             }
         }
     }
-
     /**
      * Stops all started sessions.
      */
-    public function stopSessions()
+    public function stop_sessions()
     {
         foreach ($this->sessions as $session) {
-            if ($session->isStarted()) {
+            if ($session->is_started()) {
                 $session->stop();
             }
         }
     }
-
     /**
      * Returns the named or default session without starting it.
      *
@@ -198,18 +175,15 @@ class Mink
      *
      * @throws \InvalidArgumentException If the named session is not registered
      */
-    protected function locateSession($name = null)
+    protected function locate_session($name = null)
     {
-        $name = strtolower($name) ?: $this->defaultSessionName;
-
+        $name = strtolower($name) ?: $this->default_session_name;
         if (null === $name) {
             throw new \InvalidArgumentException('Specify session name to get');
         }
-
         if (!isset($this->sessions[$name])) {
             throw new \InvalidArgumentException(sprintf('Session "%s" is not registered.', $name));
         }
-
         return $this->sessions[$name];
     }
 }

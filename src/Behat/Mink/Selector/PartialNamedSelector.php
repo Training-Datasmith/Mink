@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -9,7 +8,6 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Behat\Mink\Selector;
 
 /**
@@ -17,17 +15,16 @@ namespace Behat\Mink\Selector;
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class PartialNamedSelector extends NamedSelector
+class Partial_Named_Selector extends Named_Selector
 {
     public function __construct()
     {
-        $this->registerReplacement('%tagTextMatch%', 'contains(normalize-space(string(.)), %locator%)');
-        $this->registerReplacement('%valueMatch%', 'contains(./@value, %locator%)');
-        $this->registerReplacement('%titleMatch%', 'contains(./@title, %locator%)');
-        $this->registerReplacement('%altMatch%', 'contains(./@alt, %locator%)');
-        $this->registerReplacement('%relMatch%', 'contains(./@rel, %locator%)');
-        $this->registerReplacement('%labelAttributeMatch%', 'contains(./@label, %locator%)');
-
+        $this->register_replacement('%tagTextMatch%', 'contains(normalize-space(string(.)), %locator%)');
+        $this->register_replacement('%valueMatch%', 'contains(./@value, %locator%)');
+        $this->register_replacement('%titleMatch%', 'contains(./@title, %locator%)');
+        $this->register_replacement('%altMatch%', 'contains(./@alt, %locator%)');
+        $this->register_replacement('%relMatch%', 'contains(./@rel, %locator%)');
+        $this->register_replacement('%labelAttributeMatch%', 'contains(./@label, %locator%)');
         parent::__construct();
     }
 }

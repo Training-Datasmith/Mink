@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -9,25 +8,22 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Behat\Mink\Element;
 
 use Behat\Mink\Session;
-
 /**
  * Element interface.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-interface ElementInterface
+interface Element_Interface
 {
     /**
      * Returns XPath for handled element.
      *
      * @return string
      */
-    public function getXpath();
-
+    public function get_xpath();
     /**
      * Returns element's session.
      *
@@ -35,8 +31,7 @@ interface ElementInterface
      *
      * @deprecated Accessing the session from the element is deprecated as of 1.6 and will be impossible in 2.0.
      */
-    public function getSession();
-
+    public function get_session();
     /**
      * Checks whether element with specified selector exists inside the current element.
      *
@@ -48,14 +43,12 @@ interface ElementInterface
      * @see ElementInterface::findAll for the supported selectors
      */
     public function has($selector, $locator);
-
     /**
      * Checks if an element still exists in the DOM.
      *
      * @return boolean
      */
-    public function isValid();
-
+    public function is_valid();
     /**
      * Waits for an element(-s) to appear and returns it.
      *
@@ -66,8 +59,7 @@ interface ElementInterface
      * @return mixed
      * @throws \InvalidArgumentException When invalid callback given.
      */
-    public function waitFor($timeout, $callback);
-
+    public function wait_for($timeout, $callback);
     /**
      * Finds first element with specified selector inside the current element.
      *
@@ -79,7 +71,6 @@ interface ElementInterface
      * @see ElementInterface::findAll for the supported selectors
      */
     public function find($selector, $locator);
-
     /**
      * Finds all elements with specified selector inside the current element.
      *
@@ -98,19 +89,17 @@ interface ElementInterface
      *
      * @see NamedSelector for the locators supported by the named selectors
      */
-    public function findAll($selector, $locator);
-
+    public function find_all($selector, $locator);
     /**
      * Returns element text (inside tag).
      *
      * @return string
      */
-    public function getText();
-
+    public function get_text();
     /**
      * Returns element inner html.
      *
      * @return string
      */
-    public function getHtml();
+    public function get_html();
 }

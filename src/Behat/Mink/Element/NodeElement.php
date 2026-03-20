@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -9,21 +8,18 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Behat\Mink\Element;
 
-use Behat\Mink\Exception\ElementNotFoundException;
+use Behat\Mink\Exception\Element_Not_Found_Exception;
 use Behat\Mink\Session;
-
 /**
  * Page element node.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class NodeElement extends TraversableElement
+class Node_Element extends Traversable_Element
 {
     private $xpath;
-
     /**
      * Initializes node element.
      *
@@ -33,30 +29,26 @@ class NodeElement extends TraversableElement
     public function __construct($xpath, Session $session)
     {
         $this->xpath = $xpath;
-
         parent::__construct($session);
     }
-
     /**
      * Returns XPath for handled element.
      *
      * @return string
      */
-    public function getXpath()
+    public function get_xpath()
     {
         return $this->xpath;
     }
-
     /**
      * Returns parent element to the current one.
      *
      * @return NodeElement
      */
-    public function getParent()
+    public function get_parent()
     {
         return $this->find('xpath', '..');
     }
-
     /**
      * Returns current node tag name.
      *
@@ -64,11 +56,10 @@ class NodeElement extends TraversableElement
      *
      * @return string
      */
-    public function getTagName()
+    public function get_tag_name()
     {
-        return strtolower($this->getDriver()->getTagName($this->getXpath()));
+        return strtolower($this->get_driver()->get_tag_name($this->get_xpath()));
     }
-
     /**
      * Returns the value of the form field or option element.
      *
@@ -88,11 +79,10 @@ class NodeElement extends TraversableElement
      *
      * @return string|bool|array
      */
-    public function getValue()
+    public function get_value()
     {
-        return $this->getDriver()->getValue($this->getXpath());
+        return $this->get_driver()->get_value($this->get_xpath());
     }
-
     /**
      * Sets the value of the form field.
      *
@@ -102,11 +92,10 @@ class NodeElement extends TraversableElement
      *
      * @see NodeElement::getValue for the format of the value for each type of field
      */
-    public function setValue($value)
+    public function set_value($value)
     {
-        $this->getDriver()->setValue($this->getXpath(), $value);
+        $this->get_driver()->set_value($this->get_xpath(), $value);
     }
-
     /**
      * Checks whether element has attribute with specified name.
      *
@@ -114,11 +103,10 @@ class NodeElement extends TraversableElement
      *
      * @return Boolean
      */
-    public function hasAttribute($name)
+    public function has_attribute($name)
     {
-        return null !== $this->getDriver()->getAttribute($this->getXpath(), $name);
+        return null !== $this->get_driver()->get_attribute($this->get_xpath(), $name);
     }
-
     /**
      * Returns specified attribute value.
      *
@@ -126,11 +114,10 @@ class NodeElement extends TraversableElement
      *
      * @return string|null
      */
-    public function getAttribute($name)
+    public function get_attribute($name)
     {
-        return $this->getDriver()->getAttribute($this->getXpath(), $name);
+        return $this->get_driver()->get_attribute($this->get_xpath(), $name);
     }
-
     /**
      * Checks whether an element has a named CSS class
      *
@@ -138,23 +125,20 @@ class NodeElement extends TraversableElement
      *
      * @return boolean
      */
-    public function hasClass($className)
+    public function has_class($class_name)
     {
-        if ($this->hasAttribute('class')) {
-            return in_array($className, explode(' ', $this->getAttribute('class')));
+        if ($this->has_attribute('class')) {
+            return in_array($class_name, explode(' ', $this->get_attribute('class')));
         }
-
         return false;
     }
-
     /**
      * Clicks current node.
      */
     public function click()
     {
-        $this->getDriver()->click($this->getXpath());
+        $this->get_driver()->click($this->get_xpath());
     }
-
     /**
      * Presses current button.
      */
@@ -162,39 +146,34 @@ class NodeElement extends TraversableElement
     {
         $this->click();
     }
-
     /**
      * Double-clicks current node.
      */
-    public function doubleClick()
+    public function double_click()
     {
-        $this->getDriver()->doubleClick($this->getXpath());
+        $this->get_driver()->double_click($this->get_xpath());
     }
-
     /**
      * Right-clicks current node.
      */
-    public function rightClick()
+    public function right_click()
     {
-        $this->getDriver()->rightClick($this->getXpath());
+        $this->get_driver()->right_click($this->get_xpath());
     }
-
     /**
      * Checks current node if it's a checkbox field.
      */
     public function check()
     {
-        $this->getDriver()->check($this->getXpath());
+        $this->get_driver()->check($this->get_xpath());
     }
-
     /**
      * Unchecks current node if it's a checkbox field.
      */
     public function uncheck()
     {
-        $this->getDriver()->uncheck($this->getXpath());
+        $this->get_driver()->uncheck($this->get_xpath());
     }
-
     /**
      * Checks whether current node is checked if it's a checkbox or radio field.
      *
@@ -202,11 +181,10 @@ class NodeElement extends TraversableElement
      *
      * @return Boolean
      */
-    public function isChecked()
+    public function is_checked()
     {
-        return (bool) $this->getDriver()->isChecked($this->getXpath());
+        return (bool) $this->get_driver()->is_checked($this->get_xpath());
     }
-
     /**
      * Selects specified option for select field or specified radio button in the group
      *
@@ -222,25 +200,18 @@ class NodeElement extends TraversableElement
      *
      * @throws ElementNotFoundException when the option is not found in the select box
      */
-    public function selectOption($option, $multiple = false)
+    public function select_option($option, $multiple = false)
     {
-        if ('select' !== $this->getTagName()) {
-            $this->getDriver()->selectOption($this->getXpath(), $option, $multiple);
-
+        if ('select' !== $this->get_tag_name()) {
+            $this->get_driver()->select_option($this->get_xpath(), $option, $multiple);
             return;
         }
-
-        $opt = $this->find('named', [
-            'option', $this->getSelectorsHandler()->xpathLiteral($option),
-        ]);
-
+        $opt = $this->find('named', ['option', $this->get_selectors_handler()->xpath_literal($option)]);
         if (null === $opt) {
-            throw $this->elementNotFound('select option', 'value|text', $option);
+            throw $this->element_not_found('select option', 'value|text', $option);
         }
-
-        $this->getDriver()->selectOption($this->getXpath(), $opt->getValue(), $multiple);
+        $this->get_driver()->select_option($this->get_xpath(), $opt->get_value(), $multiple);
     }
-
     /**
      * Checks whether current node is selected if it's a option field.
      *
@@ -248,11 +219,10 @@ class NodeElement extends TraversableElement
      *
      * @return Boolean
      */
-    public function isSelected()
+    public function is_selected()
     {
-        return (bool) $this->getDriver()->isSelected($this->getXpath());
+        return (bool) $this->get_driver()->is_selected($this->get_xpath());
     }
-
     /**
      * Attach file to current node if it's a file input.
      *
@@ -260,88 +230,79 @@ class NodeElement extends TraversableElement
      *
      * @param string $path path to file (local)
      */
-    public function attachFile($path)
+    public function attach_file($path)
     {
-        $this->getDriver()->attachFile($this->getXpath(), $path);
+        $this->get_driver()->attach_file($this->get_xpath(), $path);
     }
-
     /**
      * Checks whether current node is visible on page.
      *
      * @return Boolean
      */
-    public function isVisible()
+    public function is_visible()
     {
-        return (bool) $this->getDriver()->isVisible($this->getXpath());
+        return (bool) $this->get_driver()->is_visible($this->get_xpath());
     }
-
     /**
      * Simulates a mouse over on the element.
      */
-    public function mouseOver()
+    public function mouse_over()
     {
-        $this->getDriver()->mouseOver($this->getXpath());
+        $this->get_driver()->mouse_over($this->get_xpath());
     }
-
     /**
      * Drags current node onto other node.
      *
      * @param ElementInterface $destination other node
      */
-    public function dragTo(ElementInterface $destination)
+    public function drag_to(Element_Interface $destination)
     {
-        $this->getDriver()->dragTo($this->getXpath(), $destination->getXpath());
+        $this->get_driver()->drag_to($this->get_xpath(), $destination->get_xpath());
     }
-
     /**
      * Brings focus to element.
      */
     public function focus()
     {
-        $this->getDriver()->focus($this->getXpath());
+        $this->get_driver()->focus($this->get_xpath());
     }
-
     /**
      * Removes focus from element.
      */
     public function blur()
     {
-        $this->getDriver()->blur($this->getXpath());
+        $this->get_driver()->blur($this->get_xpath());
     }
-
     /**
      * Presses specific keyboard key.
      *
      * @param string|integer $char     could be either char ('b') or char-code (98)
      * @param string         $modifier keyboard modifier (could be 'ctrl', 'alt', 'shift' or 'meta')
      */
-    public function keyPress($char, $modifier = null)
+    public function key_press($char, $modifier = null)
     {
-        $this->getDriver()->keyPress($this->getXpath(), $char, $modifier);
+        $this->get_driver()->key_press($this->get_xpath(), $char, $modifier);
     }
-
     /**
      * Pressed down specific keyboard key.
      *
      * @param string|integer $char     could be either char ('b') or char-code (98)
      * @param string         $modifier keyboard modifier (could be 'ctrl', 'alt', 'shift' or 'meta')
      */
-    public function keyDown($char, $modifier = null)
+    public function key_down($char, $modifier = null)
     {
-        $this->getDriver()->keyDown($this->getXpath(), $char, $modifier);
+        $this->get_driver()->key_down($this->get_xpath(), $char, $modifier);
     }
-
     /**
      * Pressed up specific keyboard key.
      *
      * @param string|integer $char     could be either char ('b') or char-code (98)
      * @param string         $modifier keyboard modifier (could be 'ctrl', 'alt', 'shift' or 'meta')
      */
-    public function keyUp($char, $modifier = null)
+    public function key_up($char, $modifier = null)
     {
-        $this->getDriver()->keyUp($this->getXpath(), $char, $modifier);
+        $this->get_driver()->key_up($this->get_xpath(), $char, $modifier);
     }
-
     /**
      * Submits the form.
      *
@@ -349,6 +310,6 @@ class NodeElement extends TraversableElement
      */
     public function submit()
     {
-        $this->getDriver()->submitForm($this->getXpath());
+        $this->get_driver()->submit_form($this->get_xpath());
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -9,7 +8,6 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Behat\Mink\Exception;
 
 /**
@@ -17,10 +15,10 @@ namespace Behat\Mink\Exception;
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class ResponseTextException extends ExpectationException
+class Response_Text_Exception extends Expectation_Exception
 {
-    protected function getContext()
+    protected function get_context()
     {
-        return $this->getSession()->getPage()->getText();
+        return $this->get_session()->get_page()->get_text();
     }
 }

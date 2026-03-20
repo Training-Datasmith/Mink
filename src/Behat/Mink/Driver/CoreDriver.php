@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -9,441 +8,387 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Behat\Mink\Driver;
 
-use Behat\Mink\Exception\UnsupportedDriverActionException;
+use Behat\Mink\Exception\Unsupported_Driver_Action_Exception;
 use Behat\Mink\Session;
-
 /**
  * Core driver.
  * All other drivers should extend this class for future compatibility.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-abstract class CoreDriver implements DriverInterface
+abstract class Core_Driver implements Driver_Interface
 {
     /**
      * {@inheritdoc}
      */
-    public function setSession(Session $session)
+    public function set_session(Session $session)
     {
-        throw new UnsupportedDriverActionException('Setting the session is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Setting the session is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
     public function start()
     {
-        throw new UnsupportedDriverActionException('Starting the driver is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Starting the driver is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function isStarted()
+    public function is_started()
     {
-        throw new UnsupportedDriverActionException('Checking the driver state is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Checking the driver state is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
     public function stop()
     {
-        throw new UnsupportedDriverActionException('Stopping the driver is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Stopping the driver is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
     public function reset()
     {
-        throw new UnsupportedDriverActionException('Resetting the driver is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Resetting the driver is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
     public function visit($url)
     {
-        throw new UnsupportedDriverActionException('Visiting an url is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Visiting an url is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getCurrentUrl()
+    public function get_current_url()
     {
-        throw new UnsupportedDriverActionException('Getting the current url is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Getting the current url is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getContent()
+    public function get_content()
     {
-        throw new UnsupportedDriverActionException('Getting the page content is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Getting the page content is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
     public function find($xpath)
     {
-        throw new UnsupportedDriverActionException('Finding elements is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Finding elements is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getTagName($xpath)
+    public function get_tag_name($xpath)
     {
-        throw new UnsupportedDriverActionException('Getting the tag name is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Getting the tag name is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getText($xpath)
+    public function get_text($xpath)
     {
-        throw new UnsupportedDriverActionException('Getting the element text is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Getting the element text is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getHtml($xpath)
+    public function get_html($xpath)
     {
-        throw new UnsupportedDriverActionException('Getting the element inner HTML is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Getting the element inner HTML is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getOuterHtml($xpath)
+    public function get_outer_html($xpath)
     {
-        throw new UnsupportedDriverActionException('Getting the element outer HTML is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Getting the element outer HTML is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getAttribute($xpath, $name)
+    public function get_attribute($xpath, $name)
     {
-        throw new UnsupportedDriverActionException('Getting the element attribute is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Getting the element attribute is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getValue($xpath)
+    public function get_value($xpath)
     {
-        throw new UnsupportedDriverActionException('Getting the field value is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Getting the field value is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function setValue($xpath, $value)
+    public function set_value($xpath, $value)
     {
-        throw new UnsupportedDriverActionException('Setting the field value is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Setting the field value is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
     public function check($xpath)
     {
-        throw new UnsupportedDriverActionException('Checking a checkbox is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Checking a checkbox is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
     public function uncheck($xpath)
     {
-        throw new UnsupportedDriverActionException('Unchecking a checkbox is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Unchecking a checkbox is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function isChecked($xpath)
+    public function is_checked($xpath)
     {
-        throw new UnsupportedDriverActionException('Getting the state of a checkbox is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Getting the state of a checkbox is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function selectOption($xpath, $value, $multiple = false)
+    public function select_option($xpath, $value, $multiple = false)
     {
-        throw new UnsupportedDriverActionException('Selecting an option is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Selecting an option is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
     public function click($xpath)
     {
-        throw new UnsupportedDriverActionException('Clicking on an element is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Clicking on an element is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function attachFile($xpath, $path)
+    public function attach_file($xpath, $path)
     {
-        throw new UnsupportedDriverActionException('Attaching a file in an input is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Attaching a file in an input is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
     public function reload()
     {
-        throw new UnsupportedDriverActionException('Page reloading is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Page reloading is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
     public function forward()
     {
-        throw new UnsupportedDriverActionException('Forward action is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Forward action is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
     public function back()
     {
-        throw new UnsupportedDriverActionException('Backward action is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Backward action is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function setBasicAuth($user, $password)
+    public function set_basic_auth($user, $password)
     {
-        throw new UnsupportedDriverActionException('Basic auth setup is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Basic auth setup is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function switchToWindow($name = null)
+    public function switch_to_window($name = null)
     {
-        throw new UnsupportedDriverActionException('Windows management is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Windows management is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function switchToIFrame($name = null)
+    public function switch_to_i_frame($name = null)
     {
-        throw new UnsupportedDriverActionException('iFrames management is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('iFrames management is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function setRequestHeader($name, $value)
+    public function set_request_header($name, $value)
     {
-        throw new UnsupportedDriverActionException('Request headers manipulation is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Request headers manipulation is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getResponseHeaders()
+    public function get_response_headers()
     {
-        throw new UnsupportedDriverActionException('Response headers are not available from %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Response headers are not available from %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function setCookie($name, $value = null)
+    public function set_cookie($name, $value = null)
     {
-        throw new UnsupportedDriverActionException('Cookies manipulation is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Cookies manipulation is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getCookie($name)
+    public function get_cookie($name)
     {
-        throw new UnsupportedDriverActionException('Cookies are not available from %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Cookies are not available from %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getStatusCode()
+    public function get_status_code()
     {
-        throw new UnsupportedDriverActionException('Status code is not available from %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Status code is not available from %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getScreenshot()
+    public function get_screenshot()
     {
-        throw new UnsupportedDriverActionException('Screenshots are not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Screenshots are not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getWindowNames()
+    public function get_window_names()
     {
-        throw new UnsupportedDriverActionException('Listing all window names is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Listing all window names is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getWindowName()
+    public function get_window_name()
     {
-        throw new UnsupportedDriverActionException('Listing this window name is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Listing this window name is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function doubleClick($xpath)
+    public function double_click($xpath)
     {
-        throw new UnsupportedDriverActionException('Double-clicking is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Double-clicking is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function rightClick($xpath)
+    public function right_click($xpath)
     {
-        throw new UnsupportedDriverActionException('Right-clicking is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Right-clicking is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function isVisible($xpath)
+    public function is_visible($xpath)
     {
-        throw new UnsupportedDriverActionException('Element visibility check is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Element visibility check is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function isSelected($xpath)
+    public function is_selected($xpath)
     {
-        throw new UnsupportedDriverActionException('Element selection check is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Element selection check is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function mouseOver($xpath)
+    public function mouse_over($xpath)
     {
-        throw new UnsupportedDriverActionException('Mouse manipulations are not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Mouse manipulations are not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
     public function focus($xpath)
     {
-        throw new UnsupportedDriverActionException('Mouse manipulations are not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Mouse manipulations are not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
     public function blur($xpath)
     {
-        throw new UnsupportedDriverActionException('Mouse manipulations are not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Mouse manipulations are not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function keyPress($xpath, $char, $modifier = null)
+    public function key_press($xpath, $char, $modifier = null)
     {
-        throw new UnsupportedDriverActionException('Keyboard manipulations are not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Keyboard manipulations are not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function keyDown($xpath, $char, $modifier = null)
+    public function key_down($xpath, $char, $modifier = null)
     {
-        throw new UnsupportedDriverActionException('Keyboard manipulations are not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Keyboard manipulations are not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function keyUp($xpath, $char, $modifier = null)
+    public function key_up($xpath, $char, $modifier = null)
     {
-        throw new UnsupportedDriverActionException('Keyboard manipulations are not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Keyboard manipulations are not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function dragTo($sourceXpath, $destinationXpath)
+    public function drag_to($source_xpath, $destination_xpath)
     {
-        throw new UnsupportedDriverActionException('Mouse manipulations are not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Mouse manipulations are not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function executeScript($script)
+    public function execute_script($script)
     {
-        throw new UnsupportedDriverActionException('JS is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('JS is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function evaluateScript($script)
+    public function evaluate_script($script)
     {
-        throw new UnsupportedDriverActionException('JS is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('JS is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
     public function wait($timeout, $condition)
     {
-        throw new UnsupportedDriverActionException('JS is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('JS is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function resizeWindow($width, $height, $name = null)
+    public function resize_window($width, $height, $name = null)
     {
-        throw new UnsupportedDriverActionException('Window resizing is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Window resizing is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function maximizeWindow($name = null)
+    public function maximize_window($name = null)
     {
-        throw new UnsupportedDriverActionException('Window maximize is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Window maximize is not supported by %s', $this);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function submitForm($xpath)
+    public function submit_form($xpath)
     {
-        throw new UnsupportedDriverActionException('Form submission is not supported by %s', $this);
+        throw new Unsupported_Driver_Action_Exception('Form submission is not supported by %s', $this);
     }
 }

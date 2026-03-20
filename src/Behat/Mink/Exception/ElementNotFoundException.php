@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -9,17 +8,15 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Behat\Mink\Exception;
 
 use Behat\Mink\Session;
-
 /**
  * Exception thrown when an expected element is not found.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class ElementNotFoundException extends ExpectationException
+class Element_Not_Found_Exception extends Expectation_Exception
 {
     /**
      * Initializes exception.
@@ -32,24 +29,20 @@ class ElementNotFoundException extends ExpectationException
     public function __construct(Session $session, $type = null, $selector = null, $locator = null)
     {
         $message = '';
-
         if (null !== $type) {
             $message .= ucfirst($type);
         } else {
             $message .= 'Tag';
         }
-
         if (null !== $locator) {
             if (null === $selector || in_array($selector, ['css', 'xpath'])) {
-                $selector = 'matching '.($selector ?: 'locator');
+                $selector = 'matching ' . ($selector ?: 'locator');
             } else {
-                $selector = 'with '.$selector;
+                $selector = 'with ' . $selector;
             }
-            $message .= ' '.$selector.' "' . $locator . '"';
+            $message .= ' ' . $selector . ' "' . $locator . '"';
         }
-
         $message .= ' not found.';
-
         parent::__construct($message, $session);
     }
 }

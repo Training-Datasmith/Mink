@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -9,13 +8,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Behat\Mink;
 
-use Behat\Mink\Driver\DriverInterface;
-use Behat\Mink\Element\DocumentElement;
-use Behat\Mink\Selector\SelectorsHandler;
-
+use Behat\Mink\Driver\Driver_Interface;
+use Behat\Mink\Element\Document_Element;
+use Behat\Mink\Selector\Selectors_Handler;
 /**
  * Mink session.
  *
@@ -25,34 +22,29 @@ class Session
 {
     private $driver;
     private $page;
-    private $selectorsHandler;
-
+    private $selectors_handler;
     /**
      * Initializes session.
      */
-    public function __construct(DriverInterface $driver, SelectorsHandler $selectorsHandler = null)
+    public function __construct(Driver_Interface $driver, Selectors_Handler $selectors_handler = null)
     {
-        $driver->setSession($this);
-
-        if (null === $selectorsHandler) {
-            $selectorsHandler = new SelectorsHandler();
+        $driver->set_session($this);
+        if (null === $selectors_handler) {
+            $selectors_handler = new Selectors_Handler();
         }
-
-        $this->driver           = $driver;
-        $this->selectorsHandler = $selectorsHandler;
-        $this->page             = new DocumentElement($this);
+        $this->driver = $driver;
+        $this->selectors_handler = $selectors_handler;
+        $this->page = new Document_Element($this);
     }
-
     /**
      * Checks whether session (driver) was started.
      *
      * @return Boolean
      */
-    public function isStarted()
+    public function is_started()
     {
-        return $this->driver->isStarted();
+        return $this->driver->is_started();
     }
-
     /**
      * Starts session driver.
      *
@@ -68,7 +60,6 @@ class Session
     {
         $this->driver->start();
     }
-
     /**
      * Stops session driver.
      */
@@ -76,7 +67,6 @@ class Session
     {
         $this->driver->stop();
     }
-
     /**
      * Restart session driver.
      */
@@ -85,7 +75,6 @@ class Session
         $this->driver->stop();
         $this->driver->start();
     }
-
     /**
      * Reset session driver state.
      *
@@ -101,37 +90,33 @@ class Session
     {
         $this->driver->reset();
     }
-
     /**
      * Returns session driver.
      *
      * @return DriverInterface
      */
-    public function getDriver()
+    public function get_driver()
     {
         return $this->driver;
     }
-
     /**
      * Returns page element.
      *
      * @return DocumentElement
      */
-    public function getPage()
+    public function get_page()
     {
         return $this->page;
     }
-
     /**
      * Returns selectors handler.
      *
      * @return SelectorsHandler
      */
-    public function getSelectorsHandler()
+    public function get_selectors_handler()
     {
-        return $this->selectorsHandler;
+        return $this->selectors_handler;
     }
-
     /**
      * Visit specified URL.
      *
@@ -141,50 +126,45 @@ class Session
     {
         $this->driver->visit($url);
     }
-
     /**
      * Sets HTTP Basic authentication parameters
      *
      * @param string|Boolean $user     user name or false to disable authentication
      * @param string         $password password
      */
-    public function setBasicAuth($user, $password = '')
+    public function set_basic_auth($user, $password = '')
     {
-        $this->driver->setBasicAuth($user, $password);
+        $this->driver->set_basic_auth($user, $password);
     }
-
     /**
      * Sets specific request header.
      *
      * @param string $name
      * @param string $value
      */
-    public function setRequestHeader($name, $value)
+    public function set_request_header($name, $value)
     {
-        $this->driver->setRequestHeader($name, $value);
+        $this->driver->set_request_header($name, $value);
     }
-
     /**
      * Returns all response headers.
      *
      * @return array
      */
-    public function getResponseHeaders()
+    public function get_response_headers()
     {
-        return $this->driver->getResponseHeaders();
+        return $this->driver->get_response_headers();
     }
-
     /**
      * Sets cookie.
      *
      * @param string $name
      * @param string $value
      */
-    public function setCookie($name, $value = null)
+    public function set_cookie($name, $value = null)
     {
-        $this->driver->setCookie($name, $value);
+        $this->driver->set_cookie($name, $value);
     }
-
     /**
      * Returns cookie by name.
      *
@@ -192,62 +172,56 @@ class Session
      *
      * @return string|null
      */
-    public function getCookie($name)
+    public function get_cookie($name)
     {
-        return $this->driver->getCookie($name);
+        return $this->driver->get_cookie($name);
     }
-
     /**
      * Returns response status code.
      *
      * @return integer
      */
-    public function getStatusCode()
+    public function get_status_code()
     {
-        return $this->driver->getStatusCode();
+        return $this->driver->get_status_code();
     }
-
     /**
      * Returns current URL address.
      *
      * @return string
      */
-    public function getCurrentUrl()
+    public function get_current_url()
     {
-        return $this->driver->getCurrentUrl();
+        return $this->driver->get_current_url();
     }
-
     /**
      * Capture a screenshot of the current window.
      *
      * @return string screenshot of MIME type image/* depending
      *                on driver (e.g., image/png, image/jpeg)
      */
-    public function getScreenshot()
+    public function get_screenshot()
     {
-        return $this->driver->getScreenshot();
+        return $this->driver->get_screenshot();
     }
-
     /**
      * Return the names of all open windows
      *
      * @return array Array of all open window's names.
      */
-    public function getWindowNames()
+    public function get_window_names()
     {
-        return $this->driver->getWindowNames();
+        return $this->driver->get_window_names();
     }
-
     /**
      * Return the name of the currently active window
      *
      * @return string The name of the current window.
      */
-    public function getWindowName()
+    public function get_window_name()
     {
-        return $this->driver->getWindowName();
+        return $this->driver->get_window_name();
     }
-
     /**
      * Reloads current session page.
      */
@@ -255,7 +229,6 @@ class Session
     {
         $this->driver->reload();
     }
-
     /**
      * Moves backward 1 page in history.
      */
@@ -263,7 +236,6 @@ class Session
     {
         $this->driver->back();
     }
-
     /**
      * Moves forward 1 page in history.
      */
@@ -271,37 +243,33 @@ class Session
     {
         $this->driver->forward();
     }
-
     /**
      * Switches to specific browser window.
      *
      * @param string $name window name (null for switching back to main window)
      */
-    public function switchToWindow($name = null)
+    public function switch_to_window($name = null)
     {
-        $this->driver->switchToWindow($name);
+        $this->driver->switch_to_window($name);
     }
-
     /**
      * Switches to specific iFrame.
      *
      * @param string $name iframe name (null for switching back)
      */
-    public function switchToIFrame($name = null)
+    public function switch_to_i_frame($name = null)
     {
-        $this->driver->switchToIFrame($name);
+        $this->driver->switch_to_i_frame($name);
     }
-
     /**
      * Execute JS in browser.
      *
      * @param string $script javascript
      */
-    public function executeScript($script)
+    public function execute_script($script)
     {
-        $this->driver->executeScript($script);
+        $this->driver->execute_script($script);
     }
-
     /**
      * Execute JS in browser and return it's response.
      *
@@ -309,11 +277,10 @@ class Session
      *
      * @return string
      */
-    public function evaluateScript($script)
+    public function evaluate_script($script)
     {
-        return $this->driver->evaluateScript($script);
+        return $this->driver->evaluate_script($script);
     }
-
     /**
      * Waits some time or until JS condition turns true.
      *
@@ -326,7 +293,6 @@ class Session
     {
         return $this->driver->wait($time, $condition);
     }
-
     /**
      * Set the dimensions of the window.
      *
@@ -334,18 +300,17 @@ class Session
      * @param integer $height set the window height, measured in pixels
      * @param string  $name   window name (null for the main window)
      */
-    public function resizeWindow($width, $height, $name = null)
+    public function resize_window($width, $height, $name = null)
     {
-        $this->driver->resizeWindow($width, $height, $name);
+        $this->driver->resize_window($width, $height, $name);
     }
-
     /**
      * Maximize the window if it is not maximized already
      *
      * @param string $name window name (null for the main window)
      */
-    public function maximizeWindow($name = null)
+    public function maximize_window($name = null)
     {
-        $this->driver->maximizeWindow($name);
+        $this->driver->maximize_window($name);
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -9,7 +8,6 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Behat\Mink\Element;
 
 /**
@@ -17,28 +15,26 @@ namespace Behat\Mink\Element;
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class DocumentElement extends TraversableElement
+class Document_Element extends Traversable_Element
 {
     /**
      * Returns XPath for handled element.
      *
      * @return string
      */
-    public function getXpath()
+    public function get_xpath()
     {
         return '//html';
     }
-
     /**
      * Returns document content.
      *
      * @return string
      */
-    public function getContent()
+    public function get_content()
     {
-        return trim($this->getDriver()->getContent());
+        return trim($this->get_driver()->get_content());
     }
-
     /**
      * Check whether document has specified content.
      *
@@ -46,10 +42,8 @@ class DocumentElement extends TraversableElement
      *
      * @return Boolean
      */
-    public function hasContent($content)
+    public function has_content($content)
     {
-        return $this->has('named', [
-            'content', $this->getSelectorsHandler()->xpathLiteral($content),
-        ]);
+        return $this->has('named', ['content', $this->get_selectors_handler()->xpath_literal($content)]);
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -9,23 +8,21 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Behat\Mink\Selector;
 
 /**
  * Exact match selector engine. Like the Named selector engine but ignores partial matches.
  */
-class ExactNamedSelector extends NamedSelector
+class Exact_Named_Selector extends Named_Selector
 {
     public function __construct()
     {
-        $this->registerReplacement('%tagTextMatch%', 'normalize-space(string(.)) = %locator%');
-        $this->registerReplacement('%valueMatch%', './@value = %locator%');
-        $this->registerReplacement('%titleMatch%', './@title = %locator%');
-        $this->registerReplacement('%altMatch%', './@alt = %locator%');
-        $this->registerReplacement('%relMatch%', './@rel = %locator%');
-        $this->registerReplacement('%labelAttributeMatch%', './@label = %locator%');
-
+        $this->register_replacement('%tagTextMatch%', 'normalize-space(string(.)) = %locator%');
+        $this->register_replacement('%valueMatch%', './@value = %locator%');
+        $this->register_replacement('%titleMatch%', './@title = %locator%');
+        $this->register_replacement('%altMatch%', './@alt = %locator%');
+        $this->register_replacement('%relMatch%', './@rel = %locator%');
+        $this->register_replacement('%labelAttributeMatch%', './@label = %locator%');
         parent::__construct();
     }
 }

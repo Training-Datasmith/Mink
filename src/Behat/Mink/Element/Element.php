@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -9,56 +8,48 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Behat\Mink\Element;
 
-use Behat\Mink\Driver\DriverInterface;
-use Behat\Mink\Exception\ElementNotFoundException;
-use Behat\Mink\Selector\SelectorsHandler;
+use Behat\Mink\Driver\Driver_Interface;
+use Behat\Mink\Exception\Element_Not_Found_Exception;
+use Behat\Mink\Selector\Selectors_Handler;
 use Behat\Mink\Selector\Xpath\Manipulator;
 use Behat\Mink\Session;
-
 /**
  * Base element.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-abstract class Element implements ElementInterface
+abstract class Element implements Element_Interface
 {
     /**
      * @var Session
      */
     private $session;
-
     /**
      * Driver.
      *
      * @var DriverInterface
      */
     private $driver;
-
     /**
      * @var SelectorsHandler
      */
-    private $selectorsHandler;
-
+    private $selectors_handler;
     /**
      * @var Manipulator
      */
-    private $xpathManipulator;
-
+    private $xpath_manipulator;
     /**
      * Initialize element.
      */
     public function __construct(Session $session)
     {
-        $this->xpathManipulator = new Manipulator();
+        $this->xpath_manipulator = new Manipulator();
         $this->session = $session;
-
-        $this->driver = $session->getDriver();
-        $this->selectorsHandler = $session->getSelectorsHandler();
+        $this->driver = $session->get_driver();
+        $this->selectors_handler = $session->get_selectors_handler();
     }
-
     /**
      * Returns element session.
      *
@@ -66,31 +57,28 @@ abstract class Element implements ElementInterface
      *
      * @deprecated Accessing the session from the element is deprecated as of 1.6 and will be impossible in 2.0.
      */
-    public function getSession()
+    public function get_session()
     {
         return $this->session;
     }
-
     /**
      * Returns element's driver.
      *
      * @return DriverInterface
      */
-    protected function getDriver()
+    protected function get_driver()
     {
         return $this->driver;
     }
-
     /**
      * Returns selectors handler.
      *
      * @return SelectorsHandler
      */
-    protected function getSelectorsHandler()
+    protected function get_selectors_handler()
     {
-        return $this->selectorsHandler;
+        return $this->selectors_handler;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -98,96 +86,79 @@ abstract class Element implements ElementInterface
     {
         return null !== $this->find($selector, $locator);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function isValid()
+    public function is_valid()
     {
-        return 1 === count($this->getDriver()->find($this->getXpath()));
+        return 1 === count($this->get_driver()->find($this->get_xpath()));
     }
-
     /**
      * {@inheritdoc}
      */
-    public function waitFor($timeout, $callback)
+    public function wait_for($timeout, $callback)
     {
         if (!is_callable($callback)) {
             throw new \InvalidArgumentException('Given callback is not a valid callable');
         }
-
         $start = microtime(true);
         $end = $start + $timeout;
-
         do {
             $result = call_user_func($callback, $this);
-
             if ($result) {
                 break;
             }
-
             usleep(100000);
         } while (microtime(true) < $end);
-
         return $result;
     }
-
     /**
      * {@inheritdoc}
      */
     public function find($selector, $locator)
     {
-        $items = $this->findAll($selector, $locator);
-
+        $items = $this->find_all($selector, $locator);
         return count($items) ? current($items) : null;
     }
-
     /**
      * {@inheritdoc}
      */
-    public function findAll($selector, $locator)
+    public function find_all($selector, $locator)
     {
         if ('named' === $selector) {
-            $items = $this->findAll('named_exact', $locator);
+            $items = $this->find_all('named_exact', $locator);
             if (empty($items)) {
-                return $this->findAll('named_partial', $locator);
+                return $this->find_all('named_partial', $locator);
             }
-
             return $items;
         }
-
-        $xpath = $this->getSelectorsHandler()->selectorToXpath($selector, $locator);
-        $xpath = $this->xpathManipulator->prepend($xpath, $this->getXpath());
-
-        return $this->getDriver()->find($xpath);
+        $xpath = $this->get_selectors_handler()->selector_to_xpath($selector, $locator);
+        $xpath = $this->xpath_manipulator->prepend($xpath, $this->get_xpath());
+        return $this->get_driver()->find($xpath);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getText()
+    public function get_text()
     {
-        return $this->getDriver()->getText($this->getXpath());
+        return $this->get_driver()->get_text($this->get_xpath());
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getHtml()
+    public function get_html()
     {
-        return $this->getDriver()->getHtml($this->getXpath());
+        return $this->get_driver()->get_html($this->get_xpath());
     }
-
     /**
      * Returns element outer html.
      *
      * @return string
      */
-    public function getOuterHtml()
+    public function get_outer_html()
     {
-        return $this->getDriver()->getOuterHtml($this->getXpath());
+        return $this->get_driver()->get_outer_html($this->get_xpath());
     }
-
     /**
      * Builds an ElementNotFoundException
      *
@@ -200,8 +171,8 @@ abstract class Element implements ElementInterface
      *
      * @return ElementNotFoundException
      */
-    protected function elementNotFound($type, $selector = null, $locator = null)
+    protected function element_not_found($type, $selector = null, $locator = null)
     {
-        return new ElementNotFoundException($this->session, $type, $selector, $locator);
+        return new Element_Not_Found_Exception($this->session, $type, $selector, $locator);
     }
 }

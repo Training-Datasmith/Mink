@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -9,26 +8,23 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Behat\Mink\Driver;
 
-use Behat\Mink\Element\NodeElement;
-use Behat\Mink\Exception\DriverException;
-use Behat\Mink\Exception\UnsupportedDriverActionException;
+use Behat\Mink\Element\Node_Element;
+use Behat\Mink\Exception\Driver_Exception;
+use Behat\Mink\Exception\Unsupported_Driver_Action_Exception;
 use Behat\Mink\Session;
-
 /**
  * Driver interface.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-interface DriverInterface
+interface Driver_Interface
 {
     /**
      * Sets driver's current session.
      */
-    public function setSession(Session $session);
-
+    public function set_session(Session $session);
     /**
      * Starts driver.
      *
@@ -49,14 +45,12 @@ interface DriverInterface
      * @throws DriverException When the driver cannot be started
      */
     public function start();
-
     /**
      * Checks whether driver is started.
      *
      * @return Boolean
      */
-    public function isStarted();
-
+    public function is_started();
     /**
      * Stops driver.
      *
@@ -72,7 +66,6 @@ interface DriverInterface
      * @throws DriverException When the driver cannot be closed
      */
     public function stop();
-
     /**
      * Resets driver state.
      *
@@ -94,7 +87,6 @@ interface DriverInterface
      * Calling reset on a stopped driver is an undefined behavior.
      */
     public function reset();
-
     /**
      * Visit specified URL.
      *
@@ -104,7 +96,6 @@ interface DriverInterface
      * @throws DriverException                  When the operation cannot be done
      */
     public function visit($url);
-
     /**
      * Returns current URL address.
      *
@@ -113,8 +104,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function getCurrentUrl();
-
+    public function get_current_url();
     /**
      * Reloads current page.
      *
@@ -122,7 +112,6 @@ interface DriverInterface
      * @throws DriverException                  When the operation cannot be done
      */
     public function reload();
-
     /**
      * Moves browser forward 1 page.
      *
@@ -130,7 +119,6 @@ interface DriverInterface
      * @throws DriverException                  When the operation cannot be done
      */
     public function forward();
-
     /**
      * Moves browser backward 1 page.
      *
@@ -138,7 +126,6 @@ interface DriverInterface
      * @throws DriverException                  When the operation cannot be done
      */
     public function back();
-
     /**
      * Sets HTTP Basic authentication parameters
      *
@@ -148,8 +135,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function setBasicAuth($user, $password);
-
+    public function set_basic_auth($user, $password);
     /**
      * Switches to specific browser window.
      *
@@ -158,8 +144,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function switchToWindow($name = null);
-
+    public function switch_to_window($name = null);
     /**
      * Switches to specific iFrame.
      *
@@ -168,8 +153,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function switchToIFrame($name = null);
-
+    public function switch_to_i_frame($name = null);
     /**
      * Sets specific request header on client.
      *
@@ -179,8 +163,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function setRequestHeader($name, $value);
-
+    public function set_request_header($name, $value);
     /**
      * Returns last response headers.
      *
@@ -189,8 +172,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function getResponseHeaders();
-
+    public function get_response_headers();
     /**
      * Sets cookie.
      *
@@ -200,8 +182,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function setCookie($name, $value = null);
-
+    public function set_cookie($name, $value = null);
     /**
      * Returns cookie by name.
      *
@@ -212,8 +193,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function getCookie($name);
-
+    public function get_cookie($name);
     /**
      * Returns last response status code.
      *
@@ -222,8 +202,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function getStatusCode();
-
+    public function get_status_code();
     /**
      * Returns last response content.
      *
@@ -232,8 +211,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function getContent();
-
+    public function get_content();
     /**
      * Capture a screenshot of the current window.
      *
@@ -243,8 +221,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function getScreenshot();
-
+    public function get_screenshot();
     /**
      * Return the names of all open windows.
      *
@@ -253,8 +230,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function getWindowNames();
-
+    public function get_window_names();
     /**
      * Return the name of the currently active window.
      *
@@ -263,8 +239,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function getWindowName();
-
+    public function get_window_name();
     /**
      * Finds elements with specified XPath query.
      *
@@ -276,7 +251,6 @@ interface DriverInterface
      * @throws DriverException                  When the operation cannot be done
      */
     public function find($xpath);
-
     /**
      * Returns element's tag name by it's XPath query.
      *
@@ -287,8 +261,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function getTagName($xpath);
-
+    public function get_tag_name($xpath);
     /**
      * Returns element's text by it's XPath query.
      *
@@ -299,8 +272,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function getText($xpath);
-
+    public function get_text($xpath);
     /**
      * Returns element's inner html by it's XPath query.
      *
@@ -311,8 +283,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function getHtml($xpath);
-
+    public function get_html($xpath);
     /**
      * Returns element's outer html by it's XPath query.
      *
@@ -323,8 +294,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function getOuterHtml($xpath);
-
+    public function get_outer_html($xpath);
     /**
      * Returns element's attribute by it's XPath query.
      *
@@ -336,8 +306,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function getAttribute($xpath, $name);
-
+    public function get_attribute($xpath, $name);
     /**
      * Returns element's value by it's XPath query.
      *
@@ -350,8 +319,7 @@ interface DriverInterface
      *
      * @see \Behat\Mink\Element\NodeElement::getValue
      */
-    public function getValue($xpath);
-
+    public function get_value($xpath);
     /**
      * Sets element's value by it's XPath query.
      *
@@ -363,8 +331,7 @@ interface DriverInterface
      *
      * @see \Behat\Mink\Element\NodeElement::setValue
      */
-    public function setValue($xpath, $value);
-
+    public function set_value($xpath, $value);
     /**
      * Checks checkbox by it's XPath query.
      *
@@ -376,7 +343,6 @@ interface DriverInterface
      * @see \Behat\Mink\Element\NodeElement::check
      */
     public function check($xpath);
-
     /**
      * Unchecks checkbox by it's XPath query.
      *
@@ -388,7 +354,6 @@ interface DriverInterface
      * @see \Behat\Mink\Element\NodeElement::uncheck
      */
     public function uncheck($xpath);
-
     /**
      * Checks whether checkbox or radio button located by it's XPath query is checked.
      *
@@ -401,8 +366,7 @@ interface DriverInterface
      *
      * @see \Behat\Mink\Element\NodeElement::isChecked
      */
-    public function isChecked($xpath);
-
+    public function is_checked($xpath);
     /**
      * Selects option from select field or value in radio group located by it's XPath query.
      *
@@ -415,8 +379,7 @@ interface DriverInterface
      *
      * @see \Behat\Mink\Element\NodeElement::selectOption
      */
-    public function selectOption($xpath, $value, $multiple = false);
-
+    public function select_option($xpath, $value, $multiple = false);
     /**
      * Checks whether select option, located by it's XPath query, is selected.
      *
@@ -429,8 +392,7 @@ interface DriverInterface
      *
      * @see \Behat\Mink\Element\NodeElement::isSelected
      */
-    public function isSelected($xpath);
-
+    public function is_selected($xpath);
     /**
      * Clicks button or link located by it's XPath query.
      *
@@ -440,7 +402,6 @@ interface DriverInterface
      * @throws DriverException                  When the operation cannot be done
      */
     public function click($xpath);
-
     /**
      * Double-clicks button or link located by it's XPath query.
      *
@@ -449,8 +410,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function doubleClick($xpath);
-
+    public function double_click($xpath);
     /**
      * Right-clicks button or link located by it's XPath query.
      *
@@ -459,8 +419,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function rightClick($xpath);
-
+    public function right_click($xpath);
     /**
      * Attaches file path to file field located by it's XPath query.
      *
@@ -472,8 +431,7 @@ interface DriverInterface
      *
      * @see \Behat\Mink\Element\NodeElement::attachFile
      */
-    public function attachFile($xpath, $path);
-
+    public function attach_file($xpath, $path);
     /**
      * Checks whether element visible located by it's XPath query.
      *
@@ -484,8 +442,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function isVisible($xpath);
-
+    public function is_visible($xpath);
     /**
      * Simulates a mouse over on the element.
      *
@@ -494,8 +451,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function mouseOver($xpath);
-
+    public function mouse_over($xpath);
     /**
      * Brings focus to element.
      *
@@ -505,7 +461,6 @@ interface DriverInterface
      * @throws DriverException                  When the operation cannot be done
      */
     public function focus($xpath);
-
     /**
      * Removes focus from element.
      *
@@ -515,7 +470,6 @@ interface DriverInterface
      * @throws DriverException                  When the operation cannot be done
      */
     public function blur($xpath);
-
     /**
      * Presses specific keyboard key.
      *
@@ -526,8 +480,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function keyPress($xpath, $char, $modifier = null);
-
+    public function key_press($xpath, $char, $modifier = null);
     /**
      * Pressed down specific keyboard key.
      *
@@ -538,8 +491,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function keyDown($xpath, $char, $modifier = null);
-
+    public function key_down($xpath, $char, $modifier = null);
     /**
      * Pressed up specific keyboard key.
      *
@@ -550,8 +502,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function keyUp($xpath, $char, $modifier = null);
-
+    public function key_up($xpath, $char, $modifier = null);
     /**
      * Drag one element onto another.
      *
@@ -561,8 +512,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function dragTo($sourceXpath, $destinationXpath);
-
+    public function drag_to($source_xpath, $destination_xpath);
     /**
      * Executes JS script.
      *
@@ -571,8 +521,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function executeScript($script);
-
+    public function execute_script($script);
     /**
      * Evaluates JS script.
      *
@@ -586,8 +535,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function evaluateScript($script);
-
+    public function evaluate_script($script);
     /**
      * Waits some time or until JS condition turns true.
      *
@@ -600,7 +548,6 @@ interface DriverInterface
      * @throws DriverException                  When the operation cannot be done
      */
     public function wait($timeout, $condition);
-
     /**
      * Set the dimensions of the window.
      *
@@ -611,8 +558,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function resizeWindow($width, $height, $name = null);
-
+    public function resize_window($width, $height, $name = null);
     /**
      * Maximize the window if it is not maximized already
      *
@@ -621,8 +567,7 @@ interface DriverInterface
      * @throws UnsupportedDriverActionException When operation not supported by the driver
      * @throws DriverException                  When the operation cannot be done
      */
-    public function maximizeWindow($name = null);
-
+    public function maximize_window($name = null);
     /**
      * Submits the form.
      *
@@ -633,5 +578,5 @@ interface DriverInterface
      *
      * @see \Behat\Mink\Element\NodeElement::submitForm
      */
-    public function submitForm($xpath);
+    public function submit_form($xpath);
 }

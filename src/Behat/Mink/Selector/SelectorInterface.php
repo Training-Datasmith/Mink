@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -9,7 +8,6 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Behat\Mink\Selector;
 
 /**
@@ -17,7 +15,7 @@ namespace Behat\Mink\Selector;
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-interface SelectorInterface
+interface Selector_Interface
 {
     /**
      * Translates provided locator into XPath.
@@ -26,5 +24,5 @@ interface SelectorInterface
      *
      * @return string
      */
-    public function translateToXPath($locator);
+    public function translate_to_x_path($locator);
 }

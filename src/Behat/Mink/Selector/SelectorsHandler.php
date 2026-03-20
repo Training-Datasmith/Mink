@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 /*
  * This file is part of the Mink package.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -9,21 +8,18 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Behat\Mink\Selector;
 
 use Behat\Mink\Selector\Xpath\Escaper;
-
 /**
  * Selectors handler.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class SelectorsHandler
+class Selectors_Handler
 {
     private $selectors;
     private $escaper;
-
     /**
      * Initializes selectors handler.
      *
@@ -32,27 +28,23 @@ class SelectorsHandler
     public function __construct(array $selectors = [])
     {
         $this->escaper = new Escaper();
-
-        $this->registerSelector('named_partial', new PartialNamedSelector());
-        $this->registerSelector('named_exact', new ExactNamedSelector());
-        $this->registerSelector('css', new CssSelector());
-
+        $this->register_selector('named_partial', new Partial_Named_Selector());
+        $this->register_selector('named_exact', new Exact_Named_Selector());
+        $this->register_selector('css', new Css_Selector());
         foreach ($selectors as $name => $selector) {
-            $this->registerSelector($name, $selector);
+            $this->register_selector($name, $selector);
         }
     }
-
     /**
      * Registers new selector engine with specified name.
      *
      * @param string            $name     selector engine name
      * @param SelectorInterface $selector selector engine instance
      */
-    public function registerSelector($name, SelectorInterface $selector)
+    public function register_selector($name, Selector_Interface $selector)
     {
         $this->selectors[$name] = $selector;
     }
-
     /**
      * Checks whether selector with specified name is registered on handler.
      *
@@ -60,11 +52,10 @@ class SelectorsHandler
      *
      * @return Boolean
      */
-    public function isSelectorRegistered($name)
+    public function is_selector_registered($name)
     {
         return isset($this->selectors[$name]);
     }
-
     /**
      * Returns selector engine with specified name.
      *
@@ -74,24 +65,17 @@ class SelectorsHandler
      *
      * @throws \InvalidArgumentException
      */
-    public function getSelector($name)
+    public function get_selector($name)
     {
         if ('named' === $name) {
-            trigger_error(
-                'Using the "named" selector directly from the handler is deprecated as of 1.6 and will be removed in 2.0.'
-                .' Use the "named_partial" or use the "named" selector through the Element API instead.',
-                E_USER_DEPRECATED
-            );
+            trigger_error('Using the "named" selector directly from the handler is deprecated as of 1.6 and will be removed in 2.0.' . ' Use the "named_partial" or use the "named" selector through the Element API instead.', E_USER_DEPRECATED);
             $name = 'named_partial';
         }
-
-        if (!$this->isSelectorRegistered($name)) {
-            throw new \InvalidArgumentException("Selector \"$name\" is not registered.");
+        if (!$this->is_selector_registered($name)) {
+            throw new \InvalidArgumentException("Selector \"{$name}\" is not registered.");
         }
-
         return $this->selectors[$name];
     }
-
     /**
      * Translates selector with specified name to XPath.
      *
@@ -100,19 +84,16 @@ class SelectorsHandler
      *
      * @return string
      */
-    public function selectorToXpath($selector, $locator)
+    public function selector_to_xpath($selector, $locator)
     {
         if ('xpath' === $selector) {
             if (!is_string($locator)) {
                 throw new \InvalidArgumentException('The xpath selector expects to get a string as locator');
             }
-
             return $locator;
         }
-
-        return $this->getSelector($selector)->translateToXPath($locator);
+        return $this->get_selector($selector)->translate_to_x_path($locator);
     }
-
     /**
      * Translates string to XPath literal.
      *
@@ -120,8 +101,8 @@ class SelectorsHandler
      *
      * @return string
      */
-    public function xpathLiteral($s)
+    public function xpath_literal($s)
     {
-        return $this->escaper->escapeLiteral($s);
+        return $this->escaper->escape_literal($s);
     }
 }
